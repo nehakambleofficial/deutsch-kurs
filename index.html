@@ -203,6 +203,129 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--gray-100);colo
 .fc-skip{background:var(--gray-200);color:var(--gray-700)}
 .fc-counter{font-size:14px;color:var(--gray-300);font-weight:600}
 
+/* ===== ROADMAP ===== */
+.rm-hero{background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460);border-radius:var(--radius);padding:36px;color:white;margin-bottom:28px;position:relative;overflow:hidden}
+.rm-hero::after{content:'🗺️';position:absolute;right:28px;top:50%;transform:translateY(-50%);font-size:90px;opacity:.15}
+.rm-hero h2{font-size:26px;font-weight:800;margin-bottom:8px}
+.rm-hero p{font-size:14px;opacity:.8;max-width:480px;line-height:1.6}
+.rm-hero .rm-meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.rm-chip{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:5px 14px;font-size:12px;font-weight:700;color:white}
+
+/* timeline strip */
+.timeline-strip{display:flex;align-items:center;gap:0;margin-bottom:32px;overflow-x:auto;padding-bottom:8px}
+.tl-node{display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;min-width:90px}
+.tl-bubble{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;border:3px solid transparent;transition:all .2s;color:white;flex-shrink:0}
+.tl-bubble.current{box-shadow:0 0 0 4px rgba(255,200,0,.5);animation:tlpulse 2s infinite}
+@keyframes tlpulse{0%,100%{box-shadow:0 0 0 4px rgba(255,200,0,.4)}50%{box-shadow:0 0 0 8px rgba(255,200,0,0)}}
+.tl-label{font-size:11px;font-weight:700;color:var(--gray-700);text-align:center;line-height:1.3}
+.tl-dur{font-size:10px;color:var(--gray-300);text-align:center}
+.tl-arrow{font-size:20px;color:var(--gray-300);flex-shrink:0;margin:0 2px;padding-bottom:20px}
+.tl-a1{background:#27ae60}
+.tl-a2{background:#16a085}
+.tl-b1{background:#2980b9}
+.tl-b2{background:#8e44ad}
+.tl-c1{background:#e67e22}
+.tl-c2{background:#f39c12}
+
+/* accordion */
+.accord{border:2px solid var(--gray-200);border-radius:var(--radius);margin-bottom:14px;overflow:hidden;transition:border .2s}
+.accord.open{border-color:var(--green)}
+.accord-head{display:flex;align-items:center;gap:14px;padding:18px 22px;cursor:pointer;background:var(--white);transition:background .15s;user-select:none}
+.accord-head:hover{background:var(--gray-100)}
+.accord.open .accord-head{background:var(--gray-100)}
+.accord-badge{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:white;flex-shrink:0}
+.accord-info{flex:1}
+.accord-title{font-size:16px;font-weight:800}
+.accord-sub{font-size:12px;color:var(--gray-300);margin-top:2px}
+.accord-meta{display:flex;gap:8px;align-items:center}
+.accord-pill{font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px}
+.accord-chevron{font-size:18px;color:var(--gray-300);transition:transform .25s;flex-shrink:0}
+.accord.open .accord-chevron{transform:rotate(180deg)}
+.accord-body{display:none;padding:0 22px 22px}
+.accord.open .accord-body{display:block}
+
+/* inner tabs */
+.inner-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px;border-bottom:2px solid var(--gray-200);padding-bottom:12px}
+.itab{padding:6px 14px;border-radius:999px;border:2px solid var(--gray-200);background:var(--white);font-size:12px;font-weight:700;cursor:pointer;color:var(--gray-700);transition:all .15s}
+.itab.active{background:var(--green-light);border-color:var(--green);color:var(--green-dark)}
+.itab-panel{display:none}
+.itab-panel.active{display:block}
+
+/* resource links */
+.res-list{list-style:none;display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.res-list li{display:flex;align-items:flex-start;gap:8px;font-size:14px;line-height:1.5}
+.res-list li::before{content:'→';color:var(--green-dark);font-weight:700;flex-shrink:0;margin-top:1px}
+.res-list a{color:var(--blue-dark);text-decoration:none;font-weight:600}
+.res-list a:hover{text-decoration:underline}
+.res-tag{font-size:10px;font-weight:700;padding:2px 7px;border-radius:999px;background:var(--blue-light);color:var(--blue-dark);flex-shrink:0;margin-top:2px}
+
+/* schedule mini table */
+.sched-grid{display:grid;grid-template-columns:auto 1fr auto;gap:0;border-radius:var(--radius-sm);overflow:hidden;border:2px solid var(--gray-200);margin-top:10px}
+.sched-row{display:contents}
+.sched-time{background:var(--gray-700);color:white;padding:9px 14px;font-size:12px;font-weight:700}
+.sched-act{background:var(--white);padding:9px 14px;font-size:13px;border-bottom:1px solid var(--gray-200)}
+.sched-dur{background:var(--green-light);color:var(--green-dark);padding:9px 12px;font-size:12px;font-weight:700;border-bottom:1px solid var(--gray-200);text-align:right}
+.sched-row:last-child .sched-act,.sched-row:last-child .sched-dur,.sched-row:last-child .sched-time{border-bottom:none}
+
+/* weekly grid */
+.week-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-top:16px}
+.day-card{background:var(--white);border:2px solid var(--gray-200);border-radius:var(--radius-sm);padding:14px;border-top:4px solid var(--gray-300)}
+.day-card.mon{border-top-color:#2980b9}
+.day-card.tue{border-top-color:#27ae60}
+.day-card.wed{border-top-color:#e67e22}
+.day-card.thu{border-top-color:#8e44ad}
+.day-card.fri{border-top-color:#e74c3c}
+.day-card.sat{border-top-color:#f39c12}
+.day-card.sun{border-top-color:var(--gray-300)}
+.day-name{font-size:13px;font-weight:800;margin-bottom:3px}
+.day-theme{font-size:11px;font-weight:700;color:var(--gray-300);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}
+.day-tasks{list-style:none;display:flex;flex-direction:column;gap:5px}
+.day-tasks li{font-size:12px;color:var(--gray-700);display:flex;gap:6px;align-items:flex-start;line-height:1.4}
+.day-tasks li::before{content:'•';color:var(--green-dark);font-weight:800;flex-shrink:0}
+
+/* cognate table */
+.cog-table{width:100%;border-collapse:collapse;border-radius:var(--radius-sm);overflow:hidden;margin-top:12px}
+.cog-table th{background:#4a007a;color:white;padding:9px 14px;font-size:13px;text-align:left}
+.cog-table td{padding:9px 14px;font-size:14px;border-bottom:1px solid var(--gray-200)}
+.cog-table tr:last-child td{border:none}
+.cog-table tr:nth-child(even) td{background:var(--purple-light)}
+.cog-table .de-word{font-weight:800;color:#4a007a}
+
+/* checklist */
+.check-section{margin-bottom:16px}
+.check-section h5{font-size:14px;font-weight:800;margin-bottom:10px;color:var(--gray-900)}
+.check-item{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(--gray-200);cursor:pointer}
+.check-item:last-child{border:none}
+.check-item input[type=checkbox]{width:18px;height:18px;cursor:pointer;accent-color:var(--green);flex-shrink:0;margin-top:1px}
+.check-item label{font-size:13px;color:var(--gray-700);cursor:pointer;line-height:1.5}
+.check-item.checked label{text-decoration:line-through;color:var(--gray-300)}
+
+/* cost card */
+.cost-card{background:linear-gradient(135deg,var(--yellow-light),#fff9e6);border:2px solid var(--yellow);border-radius:var(--radius);padding:24px}
+.cost-card h4{font-size:16px;font-weight:800;margin-bottom:16px;color:#664400}
+.cost-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,200,0,.3);font-size:13px}
+.cost-row:last-child{border:none;font-weight:800;font-size:15px;padding-top:12px}
+.cost-label{color:var(--gray-700)}
+.cost-val{font-weight:700;color:#664400}
+
+/* hindi card */
+.hindi-card{background:linear-gradient(135deg,var(--purple-light),#f8f0ff);border:2px solid var(--purple);border-radius:var(--radius);padding:24px;margin-bottom:20px}
+.hindi-card h4{font-size:16px;font-weight:800;color:#4a007a;margin-bottom:14px}
+.adv-list{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+.adv-list li{display:flex;gap:8px;font-size:14px;line-height:1.5;color:var(--gray-700)}
+.adv-list li .adv-icon{flex-shrink:0}
+
+/* resource master */
+.res-master-table{width:100%;border-collapse:collapse;border-radius:var(--radius-sm);overflow:hidden;margin-top:12px;font-size:13px}
+.res-master-table th{background:var(--gray-700);color:white;padding:9px 12px;text-align:left}
+.res-master-table td{padding:9px 12px;border-bottom:1px solid var(--gray-200)}
+.res-master-table tr:last-child td{border:none}
+.res-master-table tr:nth-child(even) td{background:var(--gray-100)}
+.res-master-table a{color:var(--blue-dark);font-weight:600;text-decoration:none}
+.res-master-table a:hover{text-decoration:underline}
+.free-badge{background:var(--green-light);color:var(--green-dark);font-size:10px;font-weight:700;padding:2px 7px;border-radius:999px}
+.paid-badge{background:var(--yellow-light);color:#664400;font-size:10px;font-weight:700;padding:2px 7px;border-radius:999px}
+
 /* ===== RESPONSIVE ===== */
 @media(max-width:700px){
   #sidebar{width:64px}
@@ -233,6 +356,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--gray-100);colo
     <div class="nav-section">Home</div>
     <button class="nav-item active" onclick="showScreen('home')" data-screen="home">
       <span class="nav-icon">🏠</span><span>Dashboard</span>
+    </button>
+    <button class="nav-item" onclick="showScreen('roadmap')" data-screen="roadmap">
+      <span class="nav-icon">📍</span><span>Roadmap A1→C2</span>
     </button>
     <div class="nav-section">A1 — Basics</div>
     <button class="nav-item" onclick="showScreen('lesson','alphabet')" data-screen="alphabet">
@@ -846,6 +972,7 @@ function showScreen(screen, key){
 
   const t = document.getElementById('topbar-title');
   if(screen==='home'){ t.textContent='Dashboard'; renderHome(); }
+  else if(screen==='roadmap'){ t.textContent='Learning Roadmap A1 → C2'; renderRoadmap(); }
   else if(screen==='lesson'){ t.textContent = LESSONS[key].title; renderLesson(key); }
   else if(screen==='quiz'){ t.textContent='Mixed Quiz'; renderQuiz(); }
   else if(screen==='flashcards'){ t.textContent='Flashcards'; renderFlashcards(); }
@@ -1170,6 +1297,569 @@ function getNextLesson(){
   const keys = Object.keys(LESSONS);
   const idx = keys.indexOf(currentLesson);
   return keys[idx+1] || 'home';
+}
+
+/* ===================================================
+   LEVEL DETECTION
+=================================================== */
+function getCurrentLevel(){
+  const a1Keys = ['alphabet','greetings','articles','pronouns','present','numbers','family'];
+  const a1Done = a1Keys.filter(k=>state.completed[k]).length;
+  if(a1Done >= a1Keys.length) return 'A2';
+  return 'A1';
+}
+
+/* ===================================================
+   ROADMAP
+=================================================== */
+function renderRoadmap(){
+  const curLevel = getCurrentLevel();
+  const levels = [
+    {id:'A1',color:'#27ae60',cls:'tl-a1',dur:'3–4 months',exam:'Goethe A1',months:'Months 1–4'},
+    {id:'A2',color:'#16a085',cls:'tl-a2',dur:'3–4 months',exam:'Goethe A2',months:'Months 5–8'},
+    {id:'B1',color:'#2980b9',cls:'tl-b1',dur:'5–6 months',exam:'Goethe B1',months:'Months 9–14'},
+    {id:'B2',color:'#8e44ad',cls:'tl-b2',dur:'6–8 months',exam:'Goethe B2',months:'Months 15–22'},
+    {id:'C1',color:'#e67e22',cls:'tl-c1',dur:'8–10 months',exam:'Goethe C1',months:'Months 23–32'},
+    {id:'C2',color:'#f39c12',cls:'tl-c2',dur:'10–12 months',exam:'Goethe C2 GDS',months:'Months 33–44+'},
+  ];
+
+  // ── 1. HERO ──
+  let html = `
+  <div class="rm-hero">
+    <h2>📍 Your A1 → C2 Learning Roadmap</h2>
+    <p>A complete step-by-step guide tailored for a Hindi/Marathi speaker targeting work in Germany. Every resource, schedule, exam detail and milestone — in one place.</p>
+    <div class="rm-meta">
+      <span class="rm-chip">🧠 Hindi/Marathi Speaker</span>
+      <span class="rm-chip">🎯 Work in Germany</span>
+      <span class="rm-chip">⏱️ 30–60 min/day</span>
+      <span class="rm-chip">📅 ~3–4 years total</span>
+      <span class="rm-chip">📍 Currently: ${curLevel}</span>
+    </div>
+  </div>`;
+
+  // ── 2. TIMELINE STRIP ──
+  html += `<div class="section-title">Your Journey at a Glance</div><div class="timeline-strip">`;
+  levels.forEach((lv,i)=>{
+    const isCurrent = lv.id === curLevel;
+    html += `
+    <div class="tl-node" onclick="rmScrollTo('phase-${lv.id}')">
+      <div class="tl-bubble ${lv.cls}${isCurrent?' current':''}">${lv.id}</div>
+      <div class="tl-label">${lv.exam}</div>
+      <div class="tl-dur">${lv.dur}</div>
+    </div>
+    ${i<levels.length-1?'<div class="tl-arrow">→</div>':''}`;
+  });
+  html += `</div>`;
+
+  // ── 3. PHASE ACCORDION DATA ──
+  const phases = {
+    A1:{
+      color:'#27ae60', badgeCls:'tl-a1',
+      title:'A1 — Foundation', months:'Months 1–4', exam:'Goethe A1 · ₹6,500',
+      goal:'Introduce yourself, count, name objects, say basic greetings, buy things, ask for help. You can handle very familiar situations in German.',
+      grammar:['German alphabet & pronunciation rules','Personal pronouns: ich, du, er/sie/es, wir, ihr, Sie/sie','Present tense (Präsens): sein, haben, regular verbs','Nouns + articles (der/die/das) — the 3 genders','Negation: nicht / kein','Basic sentence order: Subject–Verb–Object (verb always position 2)','Numbers 1–100, dates, telling the time'],
+      vocab:'600 words',
+      schedule:[
+        {time:'Morning',act:'Duolingo / Babbel lesson',dur:'10 min'},
+        {time:'Afternoon',act:'DW Nicos Weg A1 episode (1 ep)',dur:'15 min'},
+        {time:'Evening',act:'Anki flashcards (20 new + review)',dur:'15 min'},
+        {time:'Weekend',act:'1 full grammar lesson + speaking practice',dur:'60 min'},
+      ],
+      resources:[
+        {label:'Duolingo German',note:'Free, gamified — habit building',url:'https://www.duolingo.com'},
+        {label:'Babbel German A1',note:'Paid (~€7/mo), more structured than Duolingo',url:'https://www.babbel.com'},
+        {label:'DW Nicos Weg A1',note:'Free video course — best A1 resource',url:'https://www.dw.com/en/learn-german/nicos-weg/s-56755'},
+        {label:'Menschen A1 (Hueber)',note:'Standard classroom textbook, ~₹1,200 on Amazon India',url:''},
+        {label:'Anki — German A1 Core deck',note:'Free spaced-repetition flashcards',url:'https://ankiweb.net/shared/decks/German'},
+        {label:'Goethe "Deutsch für dich"',note:'Free exercises from the exam body itself',url:'https://www.goethe.de/dfd'},
+      ],
+      examInfo:{
+        format:'Lesen (Reading) + Hören (Listening) + Schreiben (Writing) + Sprechen (Speaking)',
+        duration:'~65 minutes total',
+        passMark:'60% in each component separately',
+        tips:['Memorize self-introduction: name, age, country, job, hobbies','Practice filling German forms — date format: TT.MM.JJJJ','Listening section uses everyday situations: café, train station, phone'],
+        register:'https://www.goethe.de/ins/in/en/spr/prf.html',
+        unlocks:'Spouse/family visa to Germany',
+      }
+    },
+    A2:{
+      color:'#16a085', badgeCls:'tl-a2',
+      title:'A2 — Survival German', months:'Months 5–8', exam:'Goethe A2 · ₹7,000',
+      goal:'Handle everyday situations: shopping, appointments, directions, simple workplace talk. Understand sentences about directly relevant areas.',
+      grammar:['Perfekt (spoken past tense) — most important past tense for conversation','Modal verbs: können, müssen, wollen, dürfen, sollen, mögen','Accusative case (den/einen) — direct objects','Dative case (dem/einem) — for prepositions: mit, zu, bei, nach, von','Separable verbs: aufmachen, anrufen, einladen','Comparative adjectives: größer, kleiner, besser'],
+      vocab:'1,200 words',
+      schedule:[
+        {time:'Morning',act:'Anki review + 5 new words',dur:'10 min'},
+        {time:'Afternoon',act:'DW Nicos Weg A2 episode',dur:'15 min'},
+        {time:'Evening',act:'Grammar workbook (1 exercise set)',dur:'20 min'},
+        {time:'Weekend',act:'30 min conversation + 1 podcast episode',dur:'60 min'},
+      ],
+      resources:[
+        {label:'DW Nicos Weg A2',note:'Free — sequel to A1 series',url:'https://www.dw.com/en/learn-german/nicos-weg-a2/s-62201'},
+        {label:'Menschen A2 / Schritte Plus Neu A2',note:'Hueber textbooks, ~₹1,200 each',url:''},
+        {label:'Slow German mit Annik Rubens',note:'Free podcast, slow & clear speech',url:'https://slowgerman.com'},
+        {label:'Deutsch für Euch (YouTube)',note:'Grammar explained in English — Katja\'s channel',url:'https://www.youtube.com/@DeutschFuerEuch'},
+        {label:'iTalki',note:'Find tutors from €10/session for speaking practice',url:'https://www.italki.com'},
+        {label:'Tandem App',note:'Free language exchange with native German speakers',url:'https://www.tandem.net'},
+      ],
+      examInfo:{
+        format:'Lesen + Hören + Schreiben + Sprechen',
+        duration:'~75 minutes total',
+        passMark:'60% in each component separately',
+        tips:['Speaking: describe a picture + respond to requests','Writing: short email or message (40–50 words)','Read 5 A2 sample papers from goethe.de before the exam'],
+        register:'https://www.goethe.de/ins/in/en/spr/prf.html',
+        unlocks:'Confirms survival-level German; some employer requirements',
+      }
+    },
+    B1:{
+      color:'#2980b9', badgeCls:'tl-b1',
+      title:'B1 — Conversational', months:'Months 9–14', exam:'Goethe B1 · ₹8,500',
+      goal:'Hold real conversations about familiar topics. Understand the main points of clear speech on familiar matters. Write simple connected text.',
+      grammar:['Präteritum (simple past) — written and formal German','Konjunktiv II: würde, wäre, hätte — polite requests and hypotheticals','Two-way prepositions (Wechselpräpositionen): in, an, auf, über, unter…','Genitive case — possession','Relative clauses: "Das ist der Mann, der…"','Subordinating conjunctions: weil, dass, obwohl, wenn, als'],
+      vocab:'2,000 words',
+      schedule:[
+        {time:'Morning',act:'Read 1 DW article (easy German)',dur:'10 min'},
+        {time:'Afternoon',act:'Podcast or YouTube in German',dur:'20 min'},
+        {time:'Evening',act:'Writing practice + grammar exercises',dur:'20 min'},
+        {time:'Weekend',act:'45-min iTalki tutoring session',dur:'Weekly'},
+      ],
+      resources:[
+        {label:'Easy German (YouTube)',note:'Street interviews with subtitles — essential at B1',url:'https://www.youtube.com/@EasyGerman'},
+        {label:'Coffee Break German (Podcast)',note:'Season 3 — structured B1 content',url:'https://coffebreakgerman.com'},
+        {label:'Menschen B1 / Studio d B1',note:'Standard B1 textbooks',url:''},
+        {label:'DW Langsam gesprochene Nachrichten',note:'Slow news with transcript — free',url:'https://www.dw.com/de/deutsch-lernen/nachrichten/s-8030'},
+        {label:'HiNative / Lang-8',note:'Native speakers correct your German writing',url:'https://hinative.com'},
+        {label:'Deutsch Grammatik Aktiv B1 (Cornelsen)',note:'Best B1 grammar workbook',url:''},
+      ],
+      examInfo:{
+        format:'Lesen + Hören + Schreiben + Sprechen (with a partner)',
+        duration:'~3 hours total',
+        passMark:'60% in each component separately',
+        tips:['Speaking: paired with another test-taker — lead the discussion, don\'t wait','Writing: practice formal email format — "Sehr geehrte/r…, Mit freundlichen Grüßen"','Reading: read DW articles every day in the 2 months before the exam'],
+        register:'https://www.goethe.de/ins/in/en/spr/prf.html',
+        unlocks:'German citizenship eligibility · Niederlassungserlaubnis (settlement permit)',
+      }
+    },
+    B2:{
+      color:'#8e44ad', badgeCls:'tl-b2',
+      title:'B2 — Work Ready', months:'Months 15–22', exam:'Goethe B2 · ₹10,000',
+      goal:'⭐ The most important level for working in Germany. Understand complex texts, communicate fluently with native speakers, discuss professional topics without strain.',
+      grammar:['Passiv constructions: wird gemacht / wurde gemacht / ist gemacht worden','Extended participial phrases (complex written German)','Konjunktiv I — reported speech in news and formal writing','Nominalization patterns','Complex multi-clause sentence structures'],
+      vocab:'4,000 words + work-domain vocabulary',
+      schedule:[
+        {time:'Morning',act:'Read German news (Spiegel Online / Zeit Online)',dur:'15 min'},
+        {time:'Afternoon',act:'German podcast at authentic speed',dur:'20 min'},
+        {time:'Evening',act:'Writing or grammar + Anki review',dur:'20 min'},
+        {time:'Weekend',act:'1 hr tutoring + watch German TV show',dur:'Weekly'},
+      ],
+      resources:[
+        {label:'Spiegel Online / Zeit Online',note:'Read daily — real German journalism',url:'https://www.spiegel.de'},
+        {label:'DW Deutsch (YouTube)',note:'Documentaries in standard German',url:'https://www.youtube.com/@DWDeutsch'},
+        {label:'"Dark" on Netflix',note:'Watch with German subtitles — excellent B2 listening',url:''},
+        {label:'ARD Mediathek',note:'Free German public TV (VPN if outside Germany)',url:'https://www.ardmediathek.de'},
+        {label:'Aspekte Neu B2 (Klett)',note:'Standard B2 preparation textbook',url:''},
+        {label:'Fest & Flauschig (Podcast)',note:'Casual native-speed German conversation',url:''},
+      ],
+      examInfo:{
+        format:'Lesen + Hören + Schreiben + Sprechen',
+        duration:'~3.5 hours total',
+        passMark:'60% in each component separately',
+        tips:['Writing: argumentative essay ~200 words — use connectors: "Einerseits…andererseits", "Dennoch", "Zusammenfassend"','Speaking: present and defend your opinion — "Meiner Meinung nach…"','Practice formal letter/email format — required in writing section'],
+        register:'https://www.goethe.de/ins/in/en/spr/prf.html',
+        unlocks:'Work visa authorization · Most employer requirements · Some university entry',
+      }
+    },
+    C1:{
+      color:'#e67e22', badgeCls:'tl-c1',
+      title:'C1 — Professional Fluency', months:'Months 23–32', exam:'Goethe C1 / TestDaF · ₹12,000',
+      goal:'Express yourself spontaneously, fluently, and precisely. Understand implicit meaning. Academic and professional use without preparation.',
+      grammar:['Complex syntactic structures and long sentences','Register switching — formal vs. informal vs. academic','Stylistic variation in writing (journalism, academic, business)','Advanced idioms, collocations, and fixed expressions','Nuanced use of all tenses and moods'],
+      vocab:'8,000+ words',
+      schedule:[
+        {time:'Morning',act:'Read quality press: FAZ, Die Zeit',dur:'20 min'},
+        {time:'Afternoon',act:'Authentic German podcast / documentary',dur:'20 min'},
+        {time:'Evening',act:'Writing practice or grammar refinement',dur:'20 min'},
+        {time:'Weekend',act:'Tutor session focused on speaking fluency',dur:'Weekly'},
+      ],
+      resources:[
+        {label:'FAZ.net / Die Zeit',note:'Quality German press — C1 level reading',url:'https://www.zeit.de'},
+        {label:'Deutschlandfunk Nova (Podcast)',note:'Educated native-speed German on science & culture',url:'https://www.deutschlandfunknova.de'},
+        {label:'Aspekte Neu C1 (Klett)',note:'Standard C1 preparation textbook',url:''},
+        {label:'Tatort (German TV series)',note:'Crime drama — regional dialects, authentic language',url:''},
+        {label:'Official Goethe C1 sample papers',note:'Free from goethe.de — essential for exam prep',url:'https://www.goethe.de/en/spr/kup/prf/prf/gc1.html'},
+        {label:'TestDaF sample papers',note:'If targeting university admission',url:'https://www.testdaf.de'},
+      ],
+      examInfo:{
+        format:'Lesen + Hören + Schreiben + Sprechen',
+        duration:'~4 hours total',
+        passMark:'60% in each component separately',
+        tips:['Writing: complex essay + formal letter ~250 words each — structure is everything','Speaking: 5-min prepared presentation + moderated discussion','Alternative: TestDaF TDN 4/5 for university admission'],
+        register:'https://www.goethe.de/ins/in/en/spr/prf.html',
+        unlocks:'Professional licensing · Engineering, medicine, nursing, law in Germany',
+      }
+    },
+    C2:{
+      color:'#f39c12', badgeCls:'tl-c2',
+      title:'C2 — Mastery', months:'Months 33–44+', exam:'Goethe C2 GDS · ₹14,000',
+      goal:'Near-native comprehension and expression. Understand everything heard or read. Express nuance, humor, subtlety with ease. No preparation needed for any situation.',
+      grammar:['All grammar at native-level automaticity','Full command of all styles: literary, academic, journalistic, colloquial','Understand and use irony, humor, cultural references','Advanced punctuation and style in formal writing'],
+      vocab:'15,000+ words (near-native)',
+      schedule:[
+        {time:'All day',act:'Full German media diet — books, news, TV, podcasts',dur:'Immersion'},
+        {time:'Weekly',act:'Write essays / summaries for tutor review',dur:'1–2 hrs'},
+        {time:'Weekly',act:'Conversation with native speakers only',dur:'1 hr'},
+        {time:'Monthly',act:'Full mock C2 exam under timed conditions',dur:'5 hrs'},
+      ],
+      resources:[
+        {label:'German novels — Kafka, Dürrenmatt, Kehlmann',note:'Start with contemporary authors for modern vocabulary',url:''},
+        {label:'Goethe C2 Prüfungstraining (Cornelsen)',note:'Official C2 exam preparation book',url:''},
+        {label:'Full German media immersion',note:'No English subtitles, no English translations',url:''},
+        {label:'Goethe C2 GDS official page',note:'Großes Deutsches Sprachdiplom — highest credential',url:'https://www.goethe.de/en/spr/kup/prf/prf/gc2.html'},
+      ],
+      examInfo:{
+        format:'Lesen + Hören + Schreiben + Sprechen',
+        duration:'~5 hours total',
+        passMark:'60% in each component separately',
+        tips:['Goethe C2 = Großes Deutsches Sprachdiplom (GDS) — internationally recognized as near-native proof','Used by translators, university lecturers, very senior professionals','Full immersion in German life is the most effective C2 preparation'],
+        register:'https://www.goethe.de/ins/in/en/spr/prf.html',
+        unlocks:'Near-native proof · Translation work · University teaching · Top professional positions',
+      }
+    },
+  };
+
+  // ── 4. PHASE ACCORDIONS ──
+  html += `<div class="section-title" style="margin-top:8px">Phase-by-Phase Guide</div>`;
+  Object.entries(phases).forEach(([lid, ph], idx)=>{
+    const isCurrent = lid === curLevel;
+    html += `
+    <div class="accord${idx===0?' open':''}" id="phase-${lid}">
+      <div class="accord-head" onclick="toggleAccord('phase-${lid}')">
+        <div class="accord-badge ${ph.badgeCls}">${lid}</div>
+        <div class="accord-info">
+          <div class="accord-title">${ph.title}</div>
+          <div class="accord-sub">${ph.months} · ${ph.exam}</div>
+        </div>
+        <div class="accord-meta">
+          ${isCurrent?'<span class="accord-pill" style="background:var(--yellow-light);color:#664400">📍 You are here</span>':''}
+          <span class="accord-pill" style="background:var(--green-light);color:var(--green-dark)">${ph.vocab}</span>
+        </div>
+        <div class="accord-chevron">▼</div>
+      </div>
+      <div class="accord-body">
+        <div class="inner-tabs">
+          <button class="itab active" onclick="switchTab('${lid}','goal',this)">🎯 Goal</button>
+          <button class="itab" onclick="switchTab('${lid}','grammar',this)">📚 Grammar</button>
+          <button class="itab" onclick="switchTab('${lid}','schedule',this)">🗓️ Daily Schedule</button>
+          <button class="itab" onclick="switchTab('${lid}','resources',this)">🔗 Resources</button>
+          <button class="itab" onclick="switchTab('${lid}','exam',this)">🎓 Exam Info</button>
+        </div>
+
+        <div class="itab-panel active" id="${lid}-goal">
+          <p style="font-size:15px;line-height:1.7;color:var(--gray-700)">${ph.goal}</p>
+        </div>
+
+        <div class="itab-panel" id="${lid}-grammar">
+          <ul class="res-list">${ph.grammar.map(g=>`<li>${g}</li>`).join('')}</ul>
+          <div style="margin-top:14px;padding:12px 16px;background:var(--blue-light);border-radius:var(--radius-sm);font-size:13px;color:var(--blue-dark)">
+            <strong>Vocabulary target at this level:</strong> ${ph.vocab}
+          </div>
+        </div>
+
+        <div class="itab-panel" id="${lid}-schedule">
+          <div class="sched-grid">
+            ${ph.schedule.map(s=>`
+            <div class="sched-row">
+              <div class="sched-time">${s.time}</div>
+              <div class="sched-act">${s.act}</div>
+              <div class="sched-dur">${s.dur}</div>
+            </div>`).join('')}
+          </div>
+        </div>
+
+        <div class="itab-panel" id="${lid}-resources">
+          <ul class="res-list">${ph.resources.map(r=>`
+            <li>
+              <div>
+                <strong>${r.url?`<a href="${r.url}" target="_blank">${r.label}</a>`:r.label}</strong>
+                <span style="color:var(--gray-300)"> — ${r.note}</span>
+              </div>
+            </li>`).join('')}</ul>
+        </div>
+
+        <div class="itab-panel" id="${lid}-exam">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
+            <div style="background:var(--gray-100);padding:14px;border-radius:var(--radius-sm)">
+              <div style="font-size:11px;font-weight:700;color:var(--gray-300);margin-bottom:4px">FORMAT</div>
+              <div style="font-size:13px;font-weight:600">${ph.examInfo.format}</div>
+            </div>
+            <div style="background:var(--gray-100);padding:14px;border-radius:var(--radius-sm)">
+              <div style="font-size:11px;font-weight:700;color:var(--gray-300);margin-bottom:4px">DURATION</div>
+              <div style="font-size:13px;font-weight:600">${ph.examInfo.duration}</div>
+            </div>
+            <div style="background:var(--green-light);padding:14px;border-radius:var(--radius-sm)">
+              <div style="font-size:11px;font-weight:700;color:var(--green-dark);margin-bottom:4px">PASS MARK</div>
+              <div style="font-size:13px;font-weight:600;color:var(--green-dark)">${ph.examInfo.passMark}</div>
+            </div>
+            <div style="background:var(--blue-light);padding:14px;border-radius:var(--radius-sm)">
+              <div style="font-size:11px;font-weight:700;color:var(--blue-dark);margin-bottom:4px">UNLOCKS</div>
+              <div style="font-size:13px;font-weight:600;color:var(--blue-dark)">${ph.examInfo.unlocks}</div>
+            </div>
+          </div>
+          <div style="margin-bottom:14px">
+            <div style="font-size:13px;font-weight:700;margin-bottom:8px">💡 Exam Tips</div>
+            <ul class="res-list">${ph.examInfo.tips.map(t=>`<li>${t}</li>`).join('')}</ul>
+          </div>
+          <a href="${ph.examInfo.register}" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:var(--blue);color:white;padding:10px 20px;border-radius:var(--radius-sm);font-size:14px;font-weight:700;text-decoration:none">
+            📋 Register at Goethe-Institut India →
+          </a>
+        </div>
+      </div>
+    </div>`;
+  });
+
+  // ── 5. HINDI ADVANTAGES ──
+  html += `
+  <div class="section-title" style="margin-top:32px">🇮🇳 Hindi/Marathi Speaker Advantages</div>
+  <div class="hindi-card">
+    <h4>✅ Your Natural Advantages</h4>
+    <ul class="adv-list">
+      <li><span class="adv-icon">🏷️</span>Hindi has 2 grammatical genders — German has 3. You already think in grammatical gender, making der/die/das easier than for English speakers.</li>
+      <li><span class="adv-icon">📐</span>Hindi has a case system (kaaraka). German's 4 cases (Nominativ, Akkusativ, Dativ, Genitiv) will feel logical, not foreign.</li>
+      <li><span class="adv-icon">🔄</span>Hindi uses postpositions; German uses prepositions. Same concept — just flip the position.</li>
+      <li><span class="adv-icon">🔤</span>Hindi conjugates verbs by person — so does German. The logic is already in your head.</li>
+      <li><span class="adv-icon">📜</span>You already know a non-Latin script. Learning the Latin alphabet phonetically for German is fast.</li>
+    </ul>
+    <h4 style="margin-top:16px">⚠️ Watch Out For</h4>
+    <ul class="adv-list">
+      <li><span class="adv-icon">🏷️</span><strong>Articles (der/die/das)</strong> — Always learn the article WITH the noun. Never memorize a noun alone. Ever.</li>
+      <li><span class="adv-icon">🔚</span><strong>Verb at end in subclauses</strong> — "Ich weiß, dass er <u>kommt</u>" — actually mirrors Hindi SOV structure!</li>
+      <li><span class="adv-icon">🧱</span><strong>Compound words</strong> — German strings nouns: "Donaudampfschifffahrtsgesellschaft". Learn to break them apart by components.</li>
+      <li><span class="adv-icon">🔊</span><strong>Umlauts ä/ö/ü</strong> — No Hindi equivalents. Needs dedicated pronunciation practice. Use the shadowing technique.</li>
+    </ul>
+  </div>
+
+  <div class="section-title">🔗 Sanskrit–German Cognates (Memorize These First!)</div>
+  <div style="background:var(--white);border:2px solid var(--gray-200);border-radius:var(--radius);padding:20px;margin-bottom:32px">
+    <p style="font-size:14px;color:var(--gray-700);margin-bottom:12px">These words are 4,000 years old and still recognizable across both languages. Start here — free vocabulary!</p>
+    <table class="cog-table">
+      <thead><tr><th>German</th><th>Hindi</th><th>Sanskrit Root</th><th>Meaning</th></tr></thead>
+      <tbody>
+        <tr><td class="de-word">Mutter</td><td>माँ / माता</td><td>mātā (माता)</td><td>mother</td></tr>
+        <tr><td class="de-word">Vater</td><td>पिता</td><td>pitā (root shifted p→v)</td><td>father</td></tr>
+        <tr><td class="de-word">Bruder</td><td>भाई</td><td>bhrātā (भ्राता)</td><td>brother</td></tr>
+        <tr><td class="de-word">Name</td><td>नाम</td><td>nāman</td><td>name</td></tr>
+        <tr><td class="de-word">Neu</td><td>नव / नया</td><td>nava (नव)</td><td>new</td></tr>
+        <tr><td class="de-word">Drei</td><td>तीन</td><td>tri (त्रि)</td><td>three</td></tr>
+        <tr><td class="de-word">Sechs</td><td>छह</td><td>shash (षट्)</td><td>six</td></tr>
+        <tr><td class="de-word">Sieben</td><td>सात</td><td>sapta (सप्त)</td><td>seven</td></tr>
+        <tr><td class="de-word">Nacht</td><td>रात</td><td>nakt (root)</td><td>night</td></tr>
+        <tr><td class="de-word">Wasser</td><td>पानी (root: var)</td><td>vār (वार्)</td><td>water</td></tr>
+      </tbody>
+    </table>
+  </div>`;
+
+  // ── 6. WEEKLY STUDY TEMPLATE ──
+  html += `
+  <div class="section-title">🗓️ Weekly Study Template</div>
+  <div class="week-grid" style="margin-bottom:32px">
+    <div class="day-card mon">
+      <div class="day-name">Monday</div><div class="day-theme">Grammar Day</div>
+      <ul class="day-tasks">
+        <li>Anki review (10 min)</li>
+        <li>Grammar lesson from textbook (25 min)</li>
+        <li>5 grammar exercises written out (15 min)</li>
+      </ul>
+    </div>
+    <div class="day-card tue">
+      <div class="day-name">Tuesday</div><div class="day-theme">Vocabulary Day</div>
+      <ul class="day-tasks">
+        <li>Anki: 20 new cards + review (10 min)</li>
+        <li>Thematic vocab + flashcard creation (20 min)</li>
+        <li>DW Nicos Weg episode (20 min)</li>
+      </ul>
+    </div>
+    <div class="day-card wed">
+      <div class="day-name">Wednesday</div><div class="day-theme">Listening Day</div>
+      <ul class="day-tasks">
+        <li>Podcast: Coffee Break German or Slow German (25 min)</li>
+        <li>DW News article reading (20 min)</li>
+        <li>Shadowing: mimic native audio (15 min)</li>
+      </ul>
+    </div>
+    <div class="day-card thu">
+      <div class="day-name">Thursday</div><div class="day-theme">Writing Day</div>
+      <ul class="day-tasks">
+        <li>Anki review (10 min)</li>
+        <li>Write a short text: diary, email (30 min)</li>
+        <li>Self-correct with dict.cc / DeepL (10 min)</li>
+      </ul>
+    </div>
+    <div class="day-card fri">
+      <div class="day-name">Friday</div><div class="day-theme">Speaking Day</div>
+      <ul class="day-tasks">
+        <li>Anki review (10 min)</li>
+        <li>iTalki session OR Tandem exchange (40 min)</li>
+        <li>Note 5 new phrases from conversation (10 min)</li>
+      </ul>
+    </div>
+    <div class="day-card sat">
+      <div class="day-name">Saturday</div><div class="day-theme">Deep Dive</div>
+      <ul class="day-tasks">
+        <li>Full textbook chapter (60 min)</li>
+        <li>German content for fun: YouTube, show, music (30 min)</li>
+      </ul>
+    </div>
+    <div class="day-card sun">
+      <div class="day-name">Sunday</div><div class="day-theme">Review + Plan</div>
+      <ul class="day-tasks">
+        <li>Anki weekly catch-up (20 min)</li>
+        <li>Re-read Thursday's writing, find errors (10 min)</li>
+        <li>Plan next week's focus topic (10 min)</li>
+        <li>German entertainment: music or short clip (15 min)</li>
+      </ul>
+    </div>
+  </div>`;
+
+  // ── 7. RESOURCE MASTER LIST ──
+  html += `
+  <div class="section-title">🔗 Resource Master List</div>
+  <div style="background:var(--white);border:2px solid var(--gray-200);border-radius:var(--radius);padding:20px;margin-bottom:20px">
+    <div style="font-size:14px;font-weight:700;margin-bottom:10px;color:var(--green-dark)">✅ Free Resources</div>
+    <table class="res-master-table">
+      <thead><tr><th>Resource</th><th>Type</th><th>Level</th><th>Link</th></tr></thead>
+      <tbody>
+        <tr><td>DW Nicos Weg</td><td>Video course</td><td>A1–B1</td><td><a href="https://www.dw.com/en/learn-german" target="_blank">dw.com ↗</a></td></tr>
+        <tr><td>Goethe "Deutsch für dich"</td><td>Exercises</td><td>A1–C2</td><td><a href="https://www.goethe.de/dfd" target="_blank">goethe.de ↗</a></td></tr>
+        <tr><td>DW Slow News (Langsam)</td><td>Audio + transcript</td><td>B1+</td><td><a href="https://www.dw.com/de/deutsch-lernen/nachrichten/s-8030" target="_blank">dw.com ↗</a></td></tr>
+        <tr><td>Easy German</td><td>YouTube</td><td>A2–B2</td><td><a href="https://www.youtube.com/@EasyGerman" target="_blank">YouTube ↗</a></td></tr>
+        <tr><td>Deutsch für Euch</td><td>YouTube</td><td>A1–B2</td><td><a href="https://www.youtube.com/@DeutschFuerEuch" target="_blank">YouTube ↗</a></td></tr>
+        <tr><td>Anki (Spaced Repetition)</td><td>Flashcard app</td><td>All</td><td><a href="https://apps.ankiweb.net" target="_blank">ankiweb.net ↗</a></td></tr>
+        <tr><td>Linguee</td><td>Contextual dictionary</td><td>All</td><td><a href="https://www.linguee.de" target="_blank">linguee.de ↗</a></td></tr>
+        <tr><td>dict.cc</td><td>Dictionary</td><td>All</td><td><a href="https://www.dict.cc" target="_blank">dict.cc ↗</a></td></tr>
+        <tr><td>DWDS</td><td>German corpus + dictionary</td><td>B1+</td><td><a href="https://www.dwds.de" target="_blank">dwds.de ↗</a></td></tr>
+        <tr><td>Reverso Context</td><td>Contextual examples</td><td>All</td><td><a href="https://context.reverso.net" target="_blank">reverso.net ↗</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="background:var(--white);border:2px solid var(--gray-200);border-radius:var(--radius);padding:20px;margin-bottom:32px">
+    <div style="font-size:14px;font-weight:700;margin-bottom:10px;color:#664400">💰 Paid Resources (Worth It)</div>
+    <table class="res-master-table">
+      <thead><tr><th>Resource</th><th>Cost</th><th>Why Worth It</th></tr></thead>
+      <tbody>
+        <tr><td>Babbel German</td><td>~€7/month</td><td>Structured A1–B1, good for commute practice</td></tr>
+        <tr><td>Pimsleur German</td><td>~€15/month</td><td>Audio-only, great for pronunciation training</td></tr>
+        <tr><td>iTalki tutors</td><td>€10–25/session</td><td>Real speaking practice — fastest single improvement</td></tr>
+        <tr><td>Hueber textbooks (Menschen)</td><td>€25–35 each</td><td>Official curriculum used in Goethe-Institut courses</td></tr>
+        <tr><td>Klett Aspekte Neu (B2–C1)</td><td>€28–35 each</td><td>Best preparation textbooks for B2 and C1</td></tr>
+      </tbody>
+    </table>
+  </div>`;
+
+  // ── 8. EXAM PREP CHECKLIST ──
+  const checklistKey = 'dk-examchecklist';
+  let checks = JSON.parse(localStorage.getItem(checklistKey)||'{}');
+
+  const checkItems = [
+    {id:'c1', section:'2 Months Before', items:[
+      'Download official sample papers from goethe.de for your target level',
+      'Take 1 full mock exam under timed conditions',
+      'Identify your weakest component: reading / listening / writing / speaking',
+    ]},
+    {id:'c2', section:'1 Month Before', items:[
+      'Complete 2 full mock exams (timed)',
+      'Focus 50% of study time on your weakest component',
+      'Practice writing 2 essays or letters per week',
+      'Book 2 speaking sessions with an iTalki tutor for exam simulation',
+    ]},
+    {id:'c3', section:'2 Weeks Before', items:[
+      'Final vocabulary burst — Anki intensive review',
+      'Do 1 mock exam per week, focus on timing and pacing',
+      'No new grammar topics — consolidate existing knowledge only',
+    ]},
+    {id:'c4', section:'Exam Day', items:[
+      'Arrive 30 minutes early',
+      'Bring: passport/ID, registration confirmation, 2 black pens',
+      'Speaking: use filler phrases — "Also…", "Ich meine…", "Genau"',
+      'Writing: outline first (3 min) then write — saves 15 minutes',
+      'Pass mark is 60% per component — a strong section cannot save a weak one',
+    ]},
+  ];
+
+  html += `
+  <div class="section-title">✅ Exam Preparation Checklist</div>
+  <div style="background:var(--white);border:2px solid var(--gray-200);border-radius:var(--radius);padding:24px;margin-bottom:32px">
+    <p style="font-size:13px;color:var(--gray-300);margin-bottom:20px">Use this checklist before every Goethe exam. Progress is saved automatically.</p>`;
+
+  checkItems.forEach(sec=>{
+    html += `<div class="check-section"><h5>${sec.section}</h5>`;
+    sec.items.forEach((item,i)=>{
+      const cid = `${sec.id}-${i}`;
+      const isDone = !!checks[cid];
+      html += `
+      <div class="check-item${isDone?' checked':''}" id="ci-${cid}" onclick="toggleCheck('${cid}')">
+        <input type="checkbox" ${isDone?'checked':''} onclick="event.stopPropagation();toggleCheck('${cid}')"/>
+        <label>${item}</label>
+      </div>`;
+    });
+    html += `</div>`;
+  });
+  html += `</div>`;
+
+  // ── 9. COST BREAKDOWN ──
+  html += `
+  <div class="section-title">💰 Cost Estimate — A1 to C1 Journey (India)</div>
+  <div class="cost-card" style="margin-bottom:40px">
+    <h4>Total Investment Over ~3 Years</h4>
+    <div class="cost-row"><span class="cost-label">Goethe exams (A1 → C1)</span><span class="cost-val">~₹54,000</span></div>
+    <div class="cost-row"><span class="cost-label">Textbooks (Menschen A1–B1, Aspekte B2–C1)</span><span class="cost-val">~₹12,000</span></div>
+    <div class="cost-row"><span class="cost-label">Anki (desktop + AnkiDroid)</span><span class="cost-val">₹0 — Free</span></div>
+    <div class="cost-row"><span class="cost-label">Duolingo / Babbel</span><span class="cost-val">~₹8,000/year</span></div>
+    <div class="cost-row"><span class="cost-label">iTalki sessions (2×/month × 3 years)</span><span class="cost-val">~₹45,000</span></div>
+    <div class="cost-row" style="border-top:2px solid var(--yellow)"><span class="cost-label">Total estimate</span><span class="cost-val">~₹1,20,000</span></div>
+    <div style="margin-top:14px;padding:12px;background:rgba(255,200,0,.2);border-radius:var(--radius-sm);font-size:13px;color:#664400">
+      💡 Compare: A language school charges ₹60,000–1,50,000 <em>per level</em>. This self-study plan covers A1→C1 for the same cost as a single school level.
+    </div>
+  </div>`;
+
+  document.getElementById('content').innerHTML = html;
+}
+
+// Accordion toggle
+function toggleAccord(id){
+  const el = document.getElementById(id);
+  const wasOpen = el.classList.contains('open');
+  document.querySelectorAll('.accord').forEach(a=>a.classList.remove('open'));
+  if(!wasOpen) el.classList.add('open');
+}
+
+// Inner tab switch
+function switchTab(level, tab, btn){
+  const body = btn.closest('.accord-body');
+  body.querySelectorAll('.itab').forEach(t=>t.classList.remove('active'));
+  body.querySelectorAll('.itab-panel').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById(`${level}-${tab}`).classList.add('active');
+}
+
+// Scroll to phase card
+function rmScrollTo(id){
+  const el = document.getElementById(id);
+  if(!el) return;
+  document.querySelectorAll('.accord').forEach(a=>a.classList.remove('open'));
+  el.classList.add('open');
+  setTimeout(()=>el.scrollIntoView({behavior:'smooth',block:'start'}), 50);
+}
+
+// Exam checklist toggle
+function toggleCheck(cid){
+  const key = 'dk-examchecklist';
+  let checks = JSON.parse(localStorage.getItem(key)||'{}');
+  checks[cid] = !checks[cid];
+  localStorage.setItem(key, JSON.stringify(checks));
+  const row = document.getElementById(`ci-${cid}`);
+  const cb = row.querySelector('input');
+  if(checks[cid]){ row.classList.add('checked'); cb.checked=true; }
+  else { row.classList.remove('checked'); cb.checked=false; }
 }
 
 /* ===================================================
