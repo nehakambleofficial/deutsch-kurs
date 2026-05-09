@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Deutsch Lernen — Neha's German Course</title>
+<style>
+/* ===== RESET & BASE ===== */
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --green:#58cc02;--green-dark:#46a302;--green-light:#d7f5a3;
+  --blue:#1cb0f6;--blue-dark:#0d8fc5;--blue-light:#d0f0fd;
+  --yellow:#ffc800;--yellow-light:#fff3cc;
+  --red:#ff4b4b;--red-light:#ffd0d0;
+  --purple:#ce82ff;--purple-light:#f0d9ff;
+  --gray-100:#f7f7f7;--gray-200:#e5e5e5;--gray-300:#afafaf;
+  --gray-700:#3c3c3c;--gray-900:#1a1a1a;
+  --white:#ffffff;
+  --sidebar-w:260px;
+  --radius:16px;--radius-sm:8px;
+  --shadow:0 4px 16px rgba(0,0,0,.1);
+  --shadow-btn:0 4px 0;
+}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--gray-100);color:var(--gray-900);min-height:100vh;display:flex;overflow-x:hidden}
+
+/* ===== SIDEBAR ===== */
+#sidebar{width:var(--sidebar-w);min-height:100vh;background:var(--white);border-right:2px solid var(--gray-200);display:flex;flex-direction:column;position:fixed;left:0;top:0;z-index:100;overflow-y:auto}
+.logo{padding:24px 20px 16px;border-bottom:2px solid var(--gray-200)}
+.logo h1{font-size:22px;font-weight:800;color:var(--green-dark);letter-spacing:-0.5px}
+.logo p{font-size:12px;color:var(--gray-300);margin-top:2px}
+.stats-bar{display:flex;gap:12px;padding:14px 20px;border-bottom:2px solid var(--gray-200);background:var(--gray-100)}
+.stat{display:flex;align-items:center;gap:5px;font-size:13px;font-weight:700}
+.stat .icon{font-size:16px}
+.stat.xp{color:#ff9600}
+.stat.streak{color:#ff4b4b}
+.stat.hearts{color:#ff4b4b}
+#sidebar nav{flex:1;padding:12px 0}
+.nav-section{padding:8px 20px 4px;font-size:11px;font-weight:700;letter-spacing:.8px;color:var(--gray-300);text-transform:uppercase}
+.nav-item{display:flex;align-items:center;gap:10px;padding:10px 20px;cursor:pointer;border-radius:var(--radius-sm);margin:2px 8px;font-size:14px;font-weight:600;color:var(--gray-700);transition:all .15s;border:none;background:none;width:calc(100% - 16px);text-align:left}
+.nav-item:hover{background:var(--gray-100)}
+.nav-item.active{background:var(--green-light);color:var(--green-dark)}
+.nav-item .nav-icon{font-size:18px;width:24px;text-align:center}
+.nav-item .badge{margin-left:auto;background:var(--green);color:white;font-size:10px;font-weight:700;padding:2px 7px;border-radius:20px}
+.nav-item .lock{margin-left:auto;opacity:.4;font-size:14px}
+.nav-item.locked{opacity:.5;cursor:not-allowed}
+
+/* ===== MAIN ===== */
+#main{margin-left:var(--sidebar-w);flex:1;display:flex;flex-direction:column;min-height:100vh}
+#topbar{background:var(--white);border-bottom:2px solid var(--gray-200);padding:16px 32px;display:flex;align-items:center;gap:16px}
+#topbar h2{font-size:20px;font-weight:800;flex:1}
+.progress-wrap{flex:1;max-width:300px}
+.progress-track{height:10px;background:var(--gray-200);border-radius:999px;overflow:hidden}
+.progress-fill{height:100%;background:var(--green);border-radius:999px;transition:width .4s ease}
+.progress-label{font-size:11px;color:var(--gray-300);margin-top:4px;text-align:right}
+#content{padding:32px;flex:1;max-width:860px;margin:0 auto;width:100%}
+
+/* ===== HOME SCREEN ===== */
+.home-hero{background:linear-gradient(135deg,#58cc02,#1cb0f6);border-radius:var(--radius);padding:36px;color:white;margin-bottom:28px;position:relative;overflow:hidden}
+.home-hero::after{content:'🇩🇪';position:absolute;right:24px;top:50%;transform:translateY(-50%);font-size:80px;opacity:.3}
+.home-hero h2{font-size:28px;font-weight:800;margin-bottom:8px}
+.home-hero p{font-size:15px;opacity:.9;max-width:420px}
+.home-hero .hero-btn{margin-top:20px;background:white;color:var(--green-dark);border:none;padding:12px 28px;border-radius:var(--radius-sm);font-size:15px;font-weight:700;cursor:pointer;transition:transform .1s;display:inline-block}
+.home-hero .hero-btn:hover{transform:scale(1.03)}
+.section-title{font-size:18px;font-weight:800;margin-bottom:16px;color:var(--gray-900)}
+.unit-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;margin-bottom:32px}
+.unit-card{background:var(--white);border-radius:var(--radius);padding:20px;cursor:pointer;border:2px solid var(--gray-200);transition:all .2s;position:relative}
+.unit-card:hover{border-color:var(--green);transform:translateY(-2px);box-shadow:var(--shadow)}
+.unit-card.completed{border-color:var(--green);background:var(--green-light)}
+.unit-card.locked{opacity:.5;cursor:not-allowed}
+.unit-card.locked:hover{transform:none;border-color:var(--gray-200)}
+.unit-icon{font-size:32px;margin-bottom:10px}
+.unit-title{font-size:14px;font-weight:700;margin-bottom:4px}
+.unit-subtitle{font-size:12px;color:var(--gray-300)}
+.unit-status{position:absolute;top:12px;right:12px;font-size:16px}
+.lesson-path{display:flex;flex-direction:column;gap:12px;align-items:center;margin-bottom:32px}
+.path-node{width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;cursor:pointer;border:3px solid transparent;transition:all .2s;position:relative}
+.path-node.done{background:var(--green);border-color:var(--green-dark);box-shadow:0 4px 0 var(--green-dark)}
+.path-node.current{background:var(--yellow);border-color:#cc9900;box-shadow:0 4px 0 #cc9900;animation:pulse 2s infinite}
+.path-node.todo{background:var(--gray-200);border-color:var(--gray-300);box-shadow:0 4px 0 var(--gray-300)}
+.path-node:hover{transform:scale(1.1)}
+.path-label{font-size:12px;font-weight:700;color:var(--gray-700);margin-top:4px;text-align:center;max-width:80px}
+.path-row{display:flex;flex-direction:column;align-items:center}
+@keyframes pulse{0%,100%{box-shadow:0 4px 0 #cc9900,0 0 0 0 rgba(255,200,0,.4)}50%{box-shadow:0 4px 0 #cc9900,0 0 0 8px rgba(255,200,0,0)}}
+
+/* ===== LESSON VIEW ===== */
+.lesson-header{display:flex;align-items:center;gap:16px;margin-bottom:28px}
+.lesson-header .back-btn{background:none;border:2px solid var(--gray-200);border-radius:var(--radius-sm);padding:8px 14px;cursor:pointer;font-size:14px;font-weight:700;color:var(--gray-700);transition:all .15s}
+.lesson-header .back-btn:hover{border-color:var(--blue);color:var(--blue)}
+.lesson-header h3{font-size:22px;font-weight:800}
+.lesson-progress{flex:1;text-align:right;font-size:13px;color:var(--gray-300);font-weight:600}
+.lesson-card{background:var(--white);border-radius:var(--radius);padding:32px;margin-bottom:20px;border:2px solid var(--gray-200);box-shadow:var(--shadow)}
+.lesson-type-badge{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:999px;font-size:12px;font-weight:700;margin-bottom:16px}
+.badge-theory{background:var(--blue-light);color:var(--blue-dark)}
+.badge-example{background:var(--yellow-light);color:#996600}
+.badge-tip{background:var(--purple-light);color:#7a00cc}
+.lesson-card h4{font-size:20px;font-weight:800;margin-bottom:12px;color:var(--gray-900)}
+.lesson-card p{font-size:15px;line-height:1.7;color:var(--gray-700)}
+.lesson-card p+p{margin-top:10px}
+
+/* grammar table */
+.g-table{width:100%;border-collapse:collapse;margin-top:16px;border-radius:var(--radius-sm);overflow:hidden}
+.g-table th{background:var(--gray-700);color:white;padding:10px 14px;text-align:left;font-size:13px}
+.g-table td{padding:10px 14px;font-size:14px;border-bottom:1px solid var(--gray-200)}
+.g-table tr:last-child td{border:none}
+.g-table tr:nth-child(even) td{background:var(--gray-100)}
+.g-table .highlight{background:var(--yellow-light)!important;font-weight:700}
+
+/* example blocks */
+.example-block{background:var(--gray-100);border-left:4px solid var(--green);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:14px 16px;margin:12px 0}
+.example-block .de{font-size:16px;font-weight:700;color:var(--gray-900)}
+.example-block .hi{font-size:13px;color:var(--gray-300);margin-top:3px}
+.example-block .en{font-size:13px;color:var(--blue-dark);margin-top:2px;font-style:italic}
+.tip-block{background:var(--purple-light);border-radius:var(--radius-sm);padding:14px 16px;margin:12px 0;display:flex;gap:10px}
+.tip-block .tip-icon{font-size:20px;flex-shrink:0}
+.tip-block .tip-text{font-size:14px;color:#4a007a;line-height:1.5}
+.cognate-badge{display:inline-flex;align-items:center;gap:6px;background:var(--yellow-light);border:1px solid var(--yellow);border-radius:var(--radius-sm);padding:6px 12px;font-size:13px;margin:4px;font-weight:600}
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-top:16px}
+.vocab-card{background:var(--gray-100);border:2px solid var(--gray-200);border-radius:var(--radius-sm);padding:12px;cursor:pointer;transition:all .15s;text-align:center}
+.vocab-card:hover{border-color:var(--blue);background:var(--blue-light)}
+.vocab-card .vc-de{font-size:15px;font-weight:700}
+.vocab-card .vc-hi{font-size:12px;color:var(--gray-300);margin-top:2px}
+.vocab-card .vc-en{font-size:12px;color:var(--blue-dark);margin-top:1px;font-style:italic}
+.vocab-card .vc-article{font-size:11px;font-weight:700;margin-top:4px;padding:2px 6px;border-radius:999px;display:inline-block}
+.art-der{background:#ffd0d0;color:#a00}
+.art-die{background:#d0f0fd;color:#0060a0}
+.art-das{background:var(--green-light);color:var(--green-dark)}
+.nav-btn-row{display:flex;justify-content:space-between;margin-top:24px;gap:12px}
+.nav-btn-row button{flex:1;padding:14px;border-radius:var(--radius-sm);border:none;font-size:15px;font-weight:700;cursor:pointer;transition:all .15s}
+.btn-prev{background:var(--gray-200);color:var(--gray-700)}
+.btn-prev:hover{background:var(--gray-300)}
+.btn-next{background:var(--green);color:white;box-shadow:0 4px 0 var(--green-dark)}
+.btn-next:hover{transform:translateY(-1px)}
+.btn-next:active{transform:translateY(2px);box-shadow:none}
+.btn-next:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none}
+
+/* ===== QUIZ ENGINE ===== */
+.quiz-header{margin-bottom:24px}
+.quiz-lives{display:flex;gap:4px;margin-bottom:12px}
+.quiz-lives span{font-size:22px}
+.quiz-progress-track{height:12px;background:var(--gray-200);border-radius:999px;overflow:hidden}
+.quiz-progress-fill{height:100%;background:var(--green);border-radius:999px;transition:width .3s}
+.quiz-card{background:var(--white);border-radius:var(--radius);padding:32px;box-shadow:var(--shadow);border:2px solid var(--gray-200)}
+.quiz-type-label{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--gray-300);margin-bottom:8px}
+.quiz-question{font-size:22px;font-weight:800;margin-bottom:8px;line-height:1.3}
+.quiz-hint{font-size:14px;color:var(--gray-300);margin-bottom:24px}
+.options-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
+.opt-btn{padding:14px 16px;border:2px solid var(--gray-200);border-radius:var(--radius-sm);background:var(--white);font-size:15px;font-weight:600;cursor:pointer;text-align:left;transition:all .15s;line-height:1.3}
+.opt-btn:hover:not(:disabled){border-color:var(--blue);background:var(--blue-light)}
+.opt-btn.selected{border-color:var(--blue);background:var(--blue-light)}
+.opt-btn.correct{border-color:var(--green);background:var(--green-light);color:var(--green-dark)}
+.opt-btn.wrong{border-color:var(--red);background:var(--red-light);color:var(--red)}
+.opt-btn:disabled{cursor:default}
+.fill-input{width:100%;padding:14px 16px;border:2px solid var(--gray-200);border-radius:var(--radius-sm);font-size:16px;font-weight:600;outline:none;transition:border .15s;margin-bottom:16px}
+.fill-input:focus{border-color:var(--blue)}
+.fill-input.correct-input{border-color:var(--green);background:var(--green-light)}
+.fill-input.wrong-input{border-color:var(--red);background:var(--red-light)}
+.submit-btn{width:100%;padding:14px;background:var(--blue);color:white;border:none;border-radius:var(--radius-sm);font-size:16px;font-weight:700;cursor:pointer;box-shadow:0 4px 0 var(--blue-dark);transition:all .15s}
+.submit-btn:hover{transform:translateY(-1px)}
+.submit-btn:active{transform:translateY(2px);box-shadow:none}
+.submit-btn:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none}
+.feedback-bar{margin-top:16px;padding:16px;border-radius:var(--radius-sm);font-size:15px;font-weight:700;display:flex;align-items:center;gap:10px}
+.feedback-bar.correct-fb{background:var(--green-light);color:var(--green-dark);border:2px solid var(--green)}
+.feedback-bar.wrong-fb{background:var(--red-light);color:var(--red);border:2px solid var(--red)}
+.feedback-bar .fb-icon{font-size:24px}
+.fb-detail{font-size:13px;font-weight:400;margin-top:3px;opacity:.8}
+.xp-toast{position:fixed;top:80px;right:32px;background:var(--yellow);color:#664400;padding:10px 20px;border-radius:var(--radius-sm);font-weight:800;font-size:15px;box-shadow:var(--shadow);transform:translateX(120%);transition:transform .3s;z-index:999}
+.xp-toast.show{transform:translateX(0)}
+
+/* ===== RESULTS SCREEN ===== */
+.results-card{background:var(--white);border-radius:var(--radius);padding:40px;text-align:center;box-shadow:var(--shadow);border:2px solid var(--gray-200)}
+.results-trophy{font-size:72px;margin-bottom:16px}
+.results-card h2{font-size:28px;font-weight:800;margin-bottom:8px}
+.results-card .subtitle{color:var(--gray-300);font-size:16px;margin-bottom:28px}
+.results-stats{display:flex;justify-content:center;gap:32px;margin-bottom:32px}
+.res-stat{text-align:center}
+.res-stat .val{font-size:32px;font-weight:800}
+.res-stat .lbl{font-size:12px;color:var(--gray-300);font-weight:600;margin-top:4px}
+.res-stat.green .val{color:var(--green-dark)}
+.res-stat.blue .val{color:var(--blue-dark)}
+.res-stat.yellow .val{color:#996600}
+.results-actions{display:flex;gap:12px;justify-content:center}
+.btn-primary{padding:14px 28px;background:var(--green);color:white;border:none;border-radius:var(--radius-sm);font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 4px 0 var(--green-dark);transition:all .15s}
+.btn-primary:hover{transform:translateY(-1px)}
+.btn-secondary{padding:14px 28px;background:var(--white);color:var(--gray-700);border:2px solid var(--gray-200);border-radius:var(--radius-sm);font-size:15px;font-weight:700;cursor:pointer;transition:all .15s}
+.btn-secondary:hover{border-color:var(--blue);color:var(--blue)}
+
+/* ===== FLASHCARD MODE ===== */
+.flashcard-wrap{display:flex;flex-direction:column;align-items:center;gap:24px}
+.flashcard{width:100%;max-width:480px;height:220px;perspective:1000px;cursor:pointer}
+.flashcard-inner{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform .5s}
+.flashcard.flipped .flashcard-inner{transform:rotateY(180deg)}
+.fc-front,.fc-back{position:absolute;width:100%;height:100%;backface-visibility:hidden;border-radius:var(--radius);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;box-shadow:var(--shadow)}
+.fc-front{background:var(--white);border:2px solid var(--gray-200)}
+.fc-back{background:var(--green-light);border:2px solid var(--green);transform:rotateY(180deg)}
+.fc-word{font-size:32px;font-weight:800;margin-bottom:8px}
+.fc-article{font-size:14px;font-weight:700;padding:4px 10px;border-radius:999px;margin-bottom:8px}
+.fc-hint{font-size:13px;color:var(--gray-300)}
+.fc-translation{font-size:22px;font-weight:700;color:var(--green-dark);margin-bottom:6px}
+.fc-example{font-size:13px;color:var(--gray-700);text-align:center;line-height:1.5}
+.fc-controls{display:flex;gap:12px}
+.fc-btn{padding:12px 24px;border-radius:var(--radius-sm);border:none;font-size:14px;font-weight:700;cursor:pointer;transition:all .15s}
+.fc-know{background:var(--green);color:white;box-shadow:0 4px 0 var(--green-dark)}
+.fc-skip{background:var(--gray-200);color:var(--gray-700)}
+.fc-counter{font-size:14px;color:var(--gray-300);font-weight:600}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:700px){
+  #sidebar{width:64px}
+  .logo p,.nav-item span,.stats-bar .stat span:last-child,.nav-section{display:none}
+  .logo h1{font-size:14px}
+  .nav-item{padding:12px;justify-content:center;margin:2px 4px}
+  .nav-item .nav-icon{width:auto}
+  #main{margin-left:64px}
+  #content{padding:16px}
+  .options-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside id="sidebar">
+  <div class="logo">
+    <h1>🇩🇪 DeutschKurs</h1>
+    <p>Neha's Learning Path</p>
+  </div>
+  <div class="stats-bar">
+    <div class="stat xp"><span class="icon">⚡</span><span id="sb-xp">0</span></div>
+    <div class="stat streak"><span class="icon">🔥</span><span id="sb-streak">0</span></div>
+    <div class="stat hearts"><span class="icon">❤️</span><span id="sb-hearts">5</span></div>
+  </div>
+  <nav>
+    <div class="nav-section">Home</div>
+    <button class="nav-item active" onclick="showScreen('home')" data-screen="home">
+      <span class="nav-icon">🏠</span><span>Dashboard</span>
+    </button>
+    <div class="nav-section">A1 — Basics</div>
+    <button class="nav-item" onclick="showScreen('lesson','alphabet')" data-screen="alphabet">
+      <span class="nav-icon">🔤</span><span>Alphabet &amp; Sounds</span>
+    </button>
+    <button class="nav-item" onclick="showScreen('lesson','greetings')" data-screen="greetings">
+      <span class="nav-icon">👋</span><span>Greetings</span>
+    </button>
+    <button class="nav-item" onclick="showScreen('lesson','articles')" data-screen="articles">
+      <span class="nav-icon">🏷️</span><span>Articles (der/die/das)</span>
+    </button>
+    <button class="nav-item" onclick="showScreen('lesson','pronouns')" data-screen="pronouns">
+      <span class="nav-icon">🙋</span><span>Pronouns</span>
+    </button>
+    <button class="nav-item" onclick="showScreen('lesson','present')" data-screen="present">
+      <span class="nav-icon">⚡</span><span>Present Tense</span>
+    </button>
+    <button class="nav-item" onclick="showScreen('lesson','numbers')" data-screen="numbers">
+      <span class="nav-icon">🔢</span><span>Numbers &amp; Time</span>
+    </button>
+    <button class="nav-item" onclick="showScreen('lesson','family')" data-screen="family">
+      <span class="nav-icon">👨‍👩‍👧</span><span>Family &amp; People</span>
+    </button>
+    <div class="nav-section">Practice</div>
+    <button class="nav-item" onclick="showScreen('flashcards')" data-screen="flashcards">
+      <span class="nav-icon">🃏</span><span>Flashcards</span>
+    </button>
+    <button class="nav-item" onclick="showScreen('quiz','mixed')" data-screen="quiz">
+      <span class="nav-icon">🎯</span><span>Mixed Quiz</span>
+    </button>
+    <div class="nav-section">Coming Soon</div>
+    <button class="nav-item locked" disabled>
+      <span class="nav-icon">🏗️</span><span>A1 Cases</span><span class="lock">🔒</span>
+    </button>
+    <button class="nav-item locked" disabled>
+      <span class="nav-icon">🕐</span><span>Past Tense</span><span class="lock">🔒</span>
+    </button>
+    <button class="nav-item locked" disabled>
+      <span class="nav-icon">🎓</span><span>B1 Grammar</span><span class="lock">🔒</span>
+    </button>
+  </nav>
+</aside>
+
+<!-- XP TOAST -->
+<div class="xp-toast" id="xp-toast">+10 XP ⚡</div>
+
+<!-- MAIN -->
+<main id="main">
+  <div id="topbar">
+    <h2 id="topbar-title">Dashboard</h2>
+    <div class="progress-wrap">
+      <div class="progress-track"><div class="progress-fill" id="overall-progress" style="width:0%"></div></div>
+      <div class="progress-label" id="progress-label">0 / 7 lessons</div>
+    </div>
+  </div>
+  <div id="content"></div>
+</main>
+
+<script>
+/* ===================================================
+   DATA LAYER
+=================================================== */
+const LESSONS = {
+
+alphabet: {
+  title: "Alphabet & Sounds",
+  icon: "🔤",
+  xp: 20,
+  slides: [
+    {
+      type:"theory", badge:"theory",
+      title:"The German Alphabet",
+      body:`<p>German uses the same 26 Latin letters as English, <strong>plus 4 special characters</strong>: <strong>ä, ö, ü</strong> (umlaut vowels) and <strong>ß</strong> (Eszett = double-s).</p>
+      <p>Most letters sound the same as English. The key differences are below.</p>`,
+    },
+    {
+      type:"table", badge:"theory",
+      title:"Critical Pronunciation Differences",
+      table:{
+        headers:["Letter","German Sound","Hindi Hint","Example"],
+        rows:[
+          ["W","like English V","व","Wasser (water) = VAH-ser"],
+          ["V","like English F","फ़","Vater (father) = FAH-ter"],
+          ["Z","like 'ts' in cats","त्स","Zeit (time) = TSAIT"],
+          ["J","like English Y","य","Jahr (year) = YAAR"],
+          ["ä","open 'e' (like 'air')","ऐ","Mädchen = MAY-dkhen"],
+          ["ö","round lips, say 'e'","(no Hindi equiv)","schön = SHÖÖN"],
+          ["ü","round lips, say 'i'","(no Hindi equiv)","über = ÜÜ-ber"],
+          ["ß","long sharp 'ss'","स्स","Straße = SHTRAH-se"],
+          ["ch (nach)","throat clearing","ख़","nach = naakh"],
+          ["ch (ich)","soft front hiss","(no Hindi equiv)","ich = ikh (soft)"],
+          ["r","guttural / uvular","(not like Hindi र)","Rot = RRot (throaty)"],
+        ]
+      }
+    },
+    {
+      type:"theory", badge:"tip",
+      title:"💡 Quick Pronunciation Tricks for You",
+      body:`<p>As a Hindi speaker, you have some natural advantages:</p>`,
+      tips:[
+        "German 'W' = your 'व'. Say 'Wasser' like 'Vasser'.",
+        "German 'V' = your 'फ़'. Say 'Vater' like 'Fater'.",
+        "The 'ie' combination is always 'ee' — like 'liebe' = LEE-be.",
+        "The 'ei' combination is always 'eye' — like 'mein' = MINE.",
+        "The 'eu/äu' combination sounds like 'oy' — like 'neu' = NOY.",
+      ]
+    },
+    {
+      type:"examples", badge:"example",
+      title:"Practice Words — Listen & Repeat",
+      examples:[
+        {de:"Guten Morgen",hi:"सुप्रभात",en:"Good morning — GOO-ten MOR-gen"},
+        {de:"Ich heiße Neha",hi:"मेरा नाम नेहा है",en:"My name is Neha — ikh HY-se..."},
+        {de:"Wie heißen Sie?",hi:"आपका नाम क्या है?",en:"What is your name? — vee HY-sen zee"},
+        {de:"Entschuldigung",hi:"माफ़ करना",en:"Excuse me — ent-SHOOL-di-goong"},
+        {de:"Danke schön",hi:"बहुत धन्यवाद",en:"Thank you very much — DAHN-ke shön"},
+      ]
+    }
+  ],
+  quiz:[
+    {type:"mc",q:"How is the German letter 'W' pronounced?",hint:"Think of a Hindi consonant",opts:["Like English W (water)","Like English V (very)","Like English B","Like German J"],ans:1,exp:"German W = English V sound. 'Wasser' sounds like 'Vasser'."},
+    {type:"mc",q:"What does 'ei' sound like in German?",hint:"Like the English word 'eye'",opts:["Like 'ee' (feet)","Like 'ay' (say)","Like 'eye' (mine)","Like 'oy' (boy)"],ans:2,exp:"'ei' = 'eye' sound. So 'mein' = MINE, 'sein' = ZINE."},
+    {type:"mc",q:"Which special character means 'double-s' in German?",opts:["ä","ö","ü","ß"],ans:3,exp:"ß (Eszett) = a sharp double-s. 'Straße' = Strasse."},
+    {type:"fill",q:"Complete the word: 'Guten ___gen' (Good morning)",hint:"Think: GOO-ten ___-gen",ans:"Mor",exp:"'Guten Morgen' = Good morning"},
+    {type:"mc",q:"How do you say 'Jahr' (year) in German?",opts:["JAHR (hard J)","YAAR (like Hindi 'yaar')","HAAR","DJAR"],ans:1,exp:"German J = English Y sound. So 'Jahr' = YAAR — which actually sounds like Hindi!"},
+  ]
+},
+
+greetings: {
+  title: "Greetings & Introductions",
+  icon: "👋",
+  xp: 25,
+  slides:[
+    {
+      type:"theory", badge:"theory",
+      title:"How Germans Greet Each Other",
+      body:`<p>German has <strong>formal (Sie)</strong> and <strong>informal (du)</strong> greetings. At work, with strangers, or with elders — always use formal. With friends and peers — use informal.</p>
+      <p>Think of it like Hindi's <strong>आप</strong> (formal) vs <strong>तुम/तू</strong> (informal).</p>`
+    },
+    {
+      type:"vocab", badge:"example",
+      title:"Essential Greetings",
+      vocab:[
+        {de:"Hallo",hi:"नमस्ते",en:"Hello (informal)",art:""},
+        {de:"Guten Morgen",hi:"सुप्रभात",en:"Good morning",art:""},
+        {de:"Guten Tag",hi:"नमस्कार",en:"Good day (formal)",art:""},
+        {de:"Guten Abend",hi:"शुभ संध्या",en:"Good evening",art:""},
+        {de:"Gute Nacht",hi:"शुभ रात्रि",en:"Good night",art:""},
+        {de:"Tschüss",hi:"अलविदा",en:"Bye (informal)",art:""},
+        {de:"Auf Wiedersehen",hi:"फिर मिलेंगे",en:"Goodbye (formal)",art:""},
+        {de:"Bis bald",hi:"जल्दी मिलेंगे",en:"See you soon",art:""},
+      ]
+    },
+    {
+      type:"examples", badge:"example",
+      title:"Introduce Yourself — Template",
+      examples:[
+        {de:"Ich heiße Neha.",hi:"मेरा नाम नेहा है।",en:"My name is Neha."},
+        {de:"Ich komme aus Indien.",hi:"मैं भारत से हूँ।",en:"I come from India."},
+        {de:"Ich wohne in Mumbai.",hi:"मैं मुंबई में रहती हूँ।",en:"I live in Mumbai."},
+        {de:"Ich bin Ingenieurin.",hi:"मैं इंजीनियर हूँ।",en:"I am an engineer."},
+        {de:"Ich lerne Deutsch.",hi:"मैं जर्मन सीख रही हूँ।",en:"I am learning German."},
+      ]
+    },
+    {
+      type:"theory", badge:"theory",
+      title:"Asking 'How Are You?'",
+      body:`<p>There are two versions:</p>`,
+      table:{
+        headers:["Situation","German","Hindi","Answer"],
+        rows:[
+          ["Formal","Wie geht es Ihnen?","आप कैसे हैं?","Gut, danke. Und Ihnen?"],
+          ["Informal","Wie geht's?","कैसे हो?","Gut, danke. Und dir?"],
+          ["Very casual","Alles gut?","सब ठीक?","Ja, alles gut!"],
+        ]
+      }
+    },
+    {
+      type:"theory", badge:"tip",
+      title:"💡 The Hindi Connection",
+      body:"",
+      tips:[
+        "'Gut' (good) — notice: हिंदी में 'गुड' शब्द भी English से आया है। जर्मन में 'gut' असली शब्द है।",
+        "'Ja' (yes) = हाँ — sounds similar to Hindi 'जी हाँ'!",
+        "'Nein' (no) — remember: NINE. One less than ten.",
+        "Germans say 'Bitte' for BOTH 'please' AND 'you're welcome'. Like हिंदी में 'जी' is used both ways.",
+      ]
+    }
+  ],
+  quiz:[
+    {type:"mc",q:"How do you say 'Good morning' in German?",opts:["Gute Nacht","Guten Abend","Guten Morgen","Guten Tag"],ans:2,exp:"Guten Morgen = Good morning. Morgen also means 'tomorrow' in German!"},
+    {type:"mc",q:"Which greeting is used in a formal setting?",opts:["Hallo","Tschüss","Hey","Guten Tag"],ans:3,exp:"'Guten Tag' is the standard formal daytime greeting."},
+    {type:"fill",q:"Complete: 'Ich _____ aus Indien.' (I come from India)",hint:"The verb for 'to come'",ans:"komme",exp:"'kommen' = to come. Ich komme = I come."},
+    {type:"mc",q:"How do you say 'you're welcome' in German?",opts:["Danke","Entschuldigung","Bitte","Tschüss"],ans:2,exp:"'Bitte' means both 'please' and 'you're welcome'. Context tells you which!"},
+    {type:"mc",q:"What does 'Wie heißen Sie?' mean?",opts:["How are you?","Where are you from?","What is your name?","Do you speak German?"],ans:2,exp:"'Wie heißen Sie?' = What is your name? (formal). Informal: 'Wie heißt du?'"},
+    {type:"fill",q:"Complete: 'Ich _____ Neha.' (My name is Neha)",hint:"Verb meaning 'to be called'",ans:"heiße",exp:"'heißen' = to be called. 'Ich heiße' = My name is / I am called."},
+  ]
+},
+
+articles: {
+  title: "Articles — der, die, das",
+  icon: "🏷️",
+  xp: 30,
+  slides:[
+    {
+      type:"theory", badge:"theory",
+      title:"The Big Challenge: 3 Genders",
+      body:`<p>Every German noun has a <strong>grammatical gender</strong>: masculine (der), feminine (die), or neuter (das).</p>
+      <p>As a Hindi speaker, you already know 2 genders (masculine/feminine). German adds a third: <strong>neuter (das)</strong>.</p>
+      <p><strong>The Golden Rule: Always learn the article WITH the noun.</strong> Never memorize a noun alone.</p>`
+    },
+    {
+      type:"table", badge:"theory",
+      title:"Gender Patterns — Your Shortcuts",
+      table:{
+        headers:["Ending / Rule","Gender","Example"],
+        rows:[
+          ["-ung","die (always)","die Wohnung, die Zeitung"],
+          ["-heit / -keit","die (always)","die Freiheit, die Möglichkeit"],
+          ["-tion / -tät","die (always)","die Station, die Universität"],
+          ["-er (person/agent)","der (usually)","der Lehrer, der Bäcker"],
+          ["-chen / -lein","das (always)","das Mädchen, das Häuschen"],
+          ["-ment","das (usually)","das Instrument, das Experiment"],
+          ["Days/months/seasons","der","der Montag, der Sommer"],
+          ["Languages/colors","das","das Deutsch, das Blau"],
+        ]
+      }
+    },
+    {
+      type:"vocab", badge:"example",
+      title:"Practice — Nouns with Articles",
+      vocab:[
+        {de:"der Mann",hi:"आदमी",en:"the man",art:"der"},
+        {de:"die Frau",hi:"महिला",en:"the woman",art:"die"},
+        {de:"das Kind",hi:"बच्चा",en:"the child",art:"das"},
+        {de:"der Tisch",hi:"मेज़",en:"the table",art:"der"},
+        {de:"die Schule",hi:"स्कूल",en:"the school",art:"die"},
+        {de:"das Buch",hi:"किताब",en:"the book",art:"das"},
+        {de:"der Bahnhof",hi:"रेलवे स्टेशन",en:"the train station",art:"der"},
+        {de:"die Wohnung",hi:"अपार्टमेंट",en:"the apartment",art:"die"},
+        {de:"das Mädchen",hi:"लड़की",en:"the girl",art:"das"},
+        {de:"die Zeit",hi:"समय",en:"the time",art:"die"},
+        {de:"der Kaffee",hi:"कॉफ़ी",en:"the coffee",art:"der"},
+        {de:"das Wasser",hi:"पानी",en:"the water",art:"das"},
+      ]
+    },
+    {
+      type:"theory", badge:"tip",
+      title:"💡 Color-Code Your Nouns (Duolingo trick)",
+      body:`<p>Professional German learners use colors:</p>
+      <p style="margin-top:12px"><span style="background:#ffd0d0;padding:4px 10px;border-radius:6px;font-weight:700;color:#a00">🔴 der = red</span>&nbsp;
+      <span style="background:#d0f0fd;padding:4px 10px;border-radius:6px;font-weight:700;color:#0060a0">🔵 die = blue</span>&nbsp;
+      <span style="background:#d7f5a3;padding:4px 10px;border-radius:6px;font-weight:700;color:#46a302">🟢 das = green</span></p>
+      <p style="margin-top:12px">When you write vocabulary, always write the noun in its color. Your brain builds visual-gender associations automatically.</p>`,
+      tips:[
+        "Every time you see a '-ung' word — it's ALWAYS die. No exceptions.",
+        "Animals: the grammatical gender often ignores biological sex. 'das Mädchen' (the girl) is neuter!",
+        "When unsure, guess 'die' — it's the most common gender.",
+      ]
+    }
+  ],
+  quiz:[
+    {type:"mc",q:"What is the article for 'Wohnung' (apartment)?",hint:"Look at the ending: -ung",opts:["der","die","das","ein"],ans:1,exp:"Words ending in -ung are ALWAYS feminine → die. die Wohnung."},
+    {type:"mc",q:"'Das Mädchen' means 'the girl' — but why is it 'das' (neuter)?",opts:["Because girls are small","Because -chen ending always makes words neuter","It's an exception","Girls can be any gender"],ans:1,exp:"The -chen diminutive suffix ALWAYS makes a noun neuter, regardless of meaning. Das Mädchen = neuter."},
+    {type:"fill",q:"Fill in the article: '___ Buch liegt auf dem Tisch.' (The book is on the table.)",hint:"Buch = book. Think: neuter?",ans:"Das",exp:"'das Buch' — Buch is neuter. So 'Das Buch liegt...'"},
+    {type:"mc",q:"Which of these is always feminine (die)?",opts:["Words ending in -chen","Words ending in -ment","Words ending in -ung","Days of the week"],ans:2,exp:"-ung endings are ALWAYS die: Wohnung, Zeitung, Erfahrung, etc."},
+    {type:"mc",q:"'Die Universität' — what ending tells you it's feminine?",opts:["-ung","-tät","-ment","-chen"],ans:1,exp:"Words ending in -tät/-ität are always feminine. Universität, Qualität, Identität..."},
+    {type:"mc",q:"What color-code should you use for 'der' words?",opts:["Blue","Green","Red","Yellow"],ans:2,exp:"Red = der (masculine). Blue = die (feminine). Green = das (neuter). Color-coding accelerates gender memory."},
+  ]
+},
+
+pronouns: {
+  title: "Personal Pronouns",
+  icon: "🙋",
+  xp: 25,
+  slides:[
+    {
+      type:"table", badge:"theory",
+      title:"German Personal Pronouns",
+      table:{
+        headers:["German","Hindi","English","Notes"],
+        rows:[
+          ["ich","मैं","I","Always lowercase (unlike English 'I')"],
+          ["du","तुम / तू","you (informal)","For friends, family, children"],
+          ["er","वह (m.)","he",""],
+          ["sie","वह (f.)","she","Same as 'sie' for they/you — context tells!"],
+          ["es","यह (neuter)","it","For neuter nouns"],
+          ["wir","हम","we",""],
+          ["ihr","तुम सब","you all (informal)","Plural of 'du'"],
+          ["Sie","आप","you (formal)","ALWAYS capitalized — respect form"],
+          ["sie","वे","they","Lowercase — context differentiates from Sie"],
+        ]
+      }
+    },
+    {
+      type:"theory", badge:"tip",
+      title:"💡 The Sie/sie Confusion — Solved",
+      body:`<p>German has <strong>3 different meanings</strong> for "sie":</p>`,
+      tips:[
+        "sie (lowercase) = she (singular feminine)",
+        "sie (lowercase) = they (plural)",
+        "Sie (CAPITAL S) = you (formal/polite) — like Hindi 'आप'",
+        "How to tell them apart? Capital S in the middle of a sentence = always formal 'you'.",
+        "After a period (new sentence), context tells you: is this talking about a woman, a group, or being polite?",
+      ]
+    },
+    {
+      type:"examples", badge:"example",
+      title:"Pronouns in Action",
+      examples:[
+        {de:"Ich lerne Deutsch.",hi:"मैं जर्मन सीख रही हूँ।",en:"I am learning German."},
+        {de:"Du bist sehr gut.",hi:"तुम बहुत अच्छे हो।",en:"You are very good. (informal)"},
+        {de:"Er arbeitet in Berlin.",hi:"वह बर्लिन में काम करता है।",en:"He works in Berlin."},
+        {de:"Sie ist Ärztin.",hi:"वह डॉक्टर है।",en:"She is a doctor."},
+        {de:"Wir wohnen in Mumbai.",hi:"हम मुंबई में रहते हैं।",en:"We live in Mumbai."},
+        {de:"Sprechen Sie Deutsch?",hi:"क्या आप जर्मन बोलते हैं?",en:"Do you speak German? (formal)"},
+      ]
+    }
+  ],
+  quiz:[
+    {type:"mc",q:"Which pronoun would you use with your German boss?",opts:["du","ihr","Sie","es"],ans:2,exp:"'Sie' (capital S) is the formal 'you' — always use with strangers, elders, bosses."},
+    {type:"mc",q:"What is the German pronoun for 'we'?",opts:["ihr","sie","wir","man"],ans:2,exp:"'wir' = we. Wir lernen Deutsch."},
+    {type:"fill",q:"Fill in: '___ bin aus Indien.' (I am from India.)",hint:"First person singular",ans:"Ich",exp:"'Ich' = I. Always lowercase in German, unlike English."},
+    {type:"mc",q:"'Sie kommen aus Deutschland' — what does 'Sie' mean here?",opts:["she","they","you (formal)","Can't tell without context"],ans:3,exp:"'Sie' with capital S in the middle of a sentence = formal 'you'. Sie kommen = You come (formal)."},
+    {type:"mc",q:"Which pronoun is used for 'das Mädchen' (the girl)?",opts:["er","sie","es","wir"],ans:2,exp:"'das Mädchen' is grammatically neuter → pronoun is 'es'. Grammar gender ≠ biological sex!"},
+  ]
+},
+
+present: {
+  title: "Present Tense — Präsens",
+  icon: "⚡",
+  xp: 35,
+  slides:[
+    {
+      type:"theory", badge:"theory",
+      title:"How German Verbs Work",
+      body:`<p>German verbs <strong>conjugate</strong> based on the subject — just like Hindi verbs change! Compare:</p>
+      <p style="margin-top:10px">Hindi: मैं जाता <strong>हूँ</strong> / तुम जाते <strong>हो</strong> / वह जाता <strong>है</strong></p>
+      <p style="margin-top:6px">German: Ich geh<strong>e</strong> / Du geh<strong>st</strong> / Er geh<strong>t</strong></p>
+      <p style="margin-top:10px">The verb <strong>stem</strong> stays the same; only the <strong>ending</strong> changes.</p>`
+    },
+    {
+      type:"table", badge:"theory",
+      title:"Regular Verb Endings — spielen (to play)",
+      table:{
+        headers:["Person","Ending","Full form","Hindi"],
+        rows:[
+          ["ich","+ e","spielen → spiele","मैं खेलता/खेलती हूँ"],
+          ["du","+ st","spielst","तुम खेलते/खेलती हो"],
+          ["er / sie / es","+ t","spielt","वह खेलता/खेलती है"],
+          ["wir","+ en","spielen","हम खेलते हैं"],
+          ["ihr","+ t","spielt","तुम सब खेलते हो"],
+          ["Sie / sie","+ en","spielen","आप/वे खेलते हैं"],
+        ]
+      }
+    },
+    {
+      type:"theory", badge:"theory",
+      title:"sein (to be) — Memorize This Completely",
+      body:`<p>The most important verb in German. It's irregular — just like Hindi 'होना' is irregular.</p>`,
+      table:{
+        headers:["Person","sein (to be)","haben (to have)"],
+        rows:[
+          ["ich","bin","habe"],
+          ["du","bist","hast"],
+          ["er/sie/es","ist","hat"],
+          ["wir","sind","haben"],
+          ["ihr","seid","habt"],
+          ["Sie/sie","sind","haben"],
+        ]
+      }
+    },
+    {
+      type:"theory", badge:"tip",
+      title:"💡 Sentence Structure — Verb in Position 2",
+      body:`<p>In German, the <strong>conjugated verb ALWAYS goes in position 2</strong>. This is the most important grammar rule.</p>`,
+      examples:[
+        {de:"Ich lerne Deutsch.",hi:"मैं जर्मन सीखती हूँ।",en:"Subject(1) + Verb(2) + Object"},
+        {de:"Heute lerne ich Deutsch.",hi:"आज मैं जर्मन सीखती हूँ।",en:"Time(1) + Verb(2) + Subject(3)!"},
+        {de:"Deutsch lerne ich heute.",hi:"जर्मन मैं आज सीखती हूँ।",en:"Object(1) + Verb(2) + Subject(3)"},
+      ]
+    },
+    {
+      type:"examples", badge:"example",
+      title:"Common Verbs — Practice",
+      examples:[
+        {de:"Ich arbeite in Mumbai.",hi:"मैं मुंबई में काम करती हूँ।",en:"I work in Mumbai."},
+        {de:"Er wohnt in Berlin.",hi:"वह बर्लिन में रहता है।",en:"He lives in Berlin."},
+        {de:"Wir lernen zusammen.",hi:"हम साथ सीखते हैं।",en:"We learn together."},
+        {de:"Sprechen Sie Englisch?",hi:"क्या आप अंग्रेज़ी बोलते हैं?",en:"Do you speak English?"},
+        {de:"Was machst du heute?",hi:"तुम आज क्या कर रहे हो?",en:"What are you doing today?"},
+      ]
+    }
+  ],
+  quiz:[
+    {type:"mc",q:"Which is correct: 'Ich ___ aus Indien.'",opts:["kommt","kommen","komme","kommst"],ans:2,exp:"'ich' takes the '-e' ending: ich komme, ich lerne, ich arbeite."},
+    {type:"fill",q:"Conjugate: 'Er ___ (arbeiten) in Berlin.'",hint:"er/sie/es ending = ?",ans:"arbeitet",exp:"er + arbeiten: stem = arbeit + t = arbeitet. Note the extra 'e' for pronunciation."},
+    {type:"mc",q:"'Wie ___ du?' (How are you? informal)",opts:["heiße","heißen","heißt","heißen"],ans:2,exp:"du + heißen: stem = heiß + st = heißt. 'Wie heißt du?' = What is your name? (informal)"},
+    {type:"mc",q:"What is 'ich bin' in English?",opts:["I have","I am","I want","I can"],ans:1,exp:"'sein' (to be): ich bin = I am. This is the most important verb form to memorize!"},
+    {type:"fill",q:"Complete: 'Wir ___ (lernen) Deutsch.'",hint:"wir ending = -en",ans:"lernen",exp:"wir + lernen: wir lernen. The wir form = infinitive form for regular verbs!"},
+    {type:"mc",q:"Which sentence has the correct word order?",opts:["Ich heute Deutsch lerne.","Heute lerne ich Deutsch.","Heute ich lerne Deutsch.","Ich lerne heute Deutsch."],ans:1,exp:"Both B and D are correct! Verb must be in position 2. 'Heute lerne ich Deutsch' and 'Ich lerne heute Deutsch' are both valid."},
+  ]
+},
+
+numbers: {
+  title: "Numbers & Time",
+  icon: "🔢",
+  xp: 20,
+  slides:[
+    {
+      type:"vocab", badge:"theory",
+      title:"Numbers 1–20",
+      vocab:[
+        {de:"eins",hi:"एक",en:"1"},
+        {de:"zwei",hi:"दो",en:"2"},
+        {de:"drei",hi:"तीन",en:"3"},
+        {de:"vier",hi:"चार",en:"4"},
+        {de:"fünf",hi:"पाँच",en:"5"},
+        {de:"sechs",hi:"छह",en:"6"},
+        {de:"sieben",hi:"सात",en:"7"},
+        {de:"acht",hi:"आठ",en:"8"},
+        {de:"neun",hi:"नौ",en:"9"},
+        {de:"zehn",hi:"दस",en:"10"},
+        {de:"elf",hi:"ग्यारह",en:"11"},
+        {de:"zwölf",hi:"बारह",en:"12"},
+        {de:"dreizehn",hi:"तेरह",en:"13"},
+        {de:"zwanzig",hi:"बीस",en:"20"},
+        {de:"hundert",hi:"सौ",en:"100"},
+        {de:"tausend",hi:"हज़ार",en:"1000"},
+      ]
+    },
+    {
+      type:"theory", badge:"tip",
+      title:"💡 Sanskrit Roots in German Numbers!",
+      body:`<p>German numbers share ancient roots with Sanskrit/Hindi — you already half-know them:</p>`,
+      tips:[
+        "drei (3) ← Sanskrit tri (त्रि) ← तीन",
+        "sechs (6) ← Sanskrit shash (षट्) ← छह",
+        "sieben (7) ← Sanskrit sapta (सप्त) ← सात",
+        "acht (8) ← Sanskrit ashta (अष्ट) ← आठ",
+        "neun (9) ← Sanskrit nava (नव) ← नौ",
+        "zehn (10) ← Sanskrit dasha (दश) ← दस",
+      ]
+    },
+    {
+      type:"table", badge:"theory",
+      title:"Telling the Time",
+      table:{
+        headers:["German","Meaning","Hindi"],
+        rows:[
+          ["Es ist 8 Uhr.","It is 8 o'clock.","आठ बजे हैं।"],
+          ["Es ist halb neun.","It is 8:30 (half nine)","साढ़े आठ बजे हैं।"],
+          ["Es ist Viertel nach drei.","It is 3:15","सवा तीन बजे हैं।"],
+          ["Es ist Viertel vor vier.","It is 3:45","पौने चार बजे हैं।"],
+          ["Um wie viel Uhr?","At what time?","कितने बजे?"],
+          ["morgens","in the morning","सुबह"],
+          ["nachmittags","in the afternoon","दोपहर"],
+          ["abends","in the evening","शाम"],
+        ]
+      }
+    },
+    {
+      type:"theory", badge:"tip",
+      title:"⚠️ 'Halb' Warning — German Half Hours",
+      body:`<p>German "halb" (half) works DIFFERENTLY than English:</p>
+      <p style="margin-top:10px"><strong>halb neun</strong> = half of the ninth hour = <strong>8:30</strong> (NOT 9:30!)</p>
+      <p style="margin-top:8px">Think: halb neun = halfway TO nine = 8:30.</p>
+      <p style="margin-top:8px">This trips up almost every learner. Remember: <strong>halb X = (X-1):30</strong></p>`
+    }
+  ],
+  quiz:[
+    {type:"mc",q:"What is 'sieben' in English?",opts:["6","7","8","9"],ans:1,exp:"sieben = 7. Remember: Sanskrit sapta → German sieben → Hindi saat (सात)."},
+    {type:"fill",q:"Write the German word for 100",ans:"hundert",exp:"hundert = 100. 'Ich brauche hundert Euro.' = I need 100 euros."},
+    {type:"mc",q:"What time is 'halb neun'?",opts:["9:00","9:30","8:30","8:00"],ans:2,exp:"halb neun = half past eight = 8:30. 'Halb' + next hour = 30 minutes before that hour!"},
+    {type:"mc",q:"'Zehn' has roots in which Sanskrit word?",opts:["dasha (दश)","tri (त्रि)","nava (नव)","sapta (सप्त)"],ans:0,exp:"zehn ← Sanskrit dasha (दश) ← Hindi das (दस). One of the clearest cognates!"},
+    {type:"mc",q:"How do you say 'At what time?' in German?",opts:["Wie spät ist es?","Um wie viel Uhr?","Wann?","Wie lange?"],ans:1,exp:"'Um wie viel Uhr?' = At what time? 'Um' before times = 'at' in English."},
+  ]
+},
+
+family: {
+  title: "Family & People",
+  icon: "👨‍👩‍👧",
+  xp: 20,
+  slides:[
+    {
+      type:"vocab", badge:"theory",
+      title:"Family Vocabulary",
+      vocab:[
+        {de:"die Familie",hi:"परिवार",en:"the family",art:"die"},
+        {de:"die Mutter",hi:"माँ",en:"the mother",art:"die"},
+        {de:"der Vater",hi:"पिता",en:"the father",art:"der"},
+        {de:"die Eltern",hi:"माता-पिता",en:"the parents",art:"die"},
+        {de:"der Bruder",hi:"भाई",en:"the brother",art:"der"},
+        {de:"die Schwester",hi:"बहन",en:"the sister",art:"die"},
+        {de:"der Sohn",hi:"बेटा",en:"the son",art:"der"},
+        {de:"die Tochter",hi:"बेटी",en:"the daughter",art:"die"},
+        {de:"der Mann",hi:"पति / आदमी",en:"husband / man",art:"der"},
+        {de:"die Frau",hi:"पत्नी / महिला",en:"wife / woman",art:"die"},
+        {de:"die Großmutter",hi:"दादी / नानी",en:"grandmother",art:"die"},
+        {de:"der Großvater",hi:"दादा / नाना",en:"grandfather",art:"der"},
+        {de:"das Kind",hi:"बच्चा",en:"the child",art:"das"},
+        {de:"der Freund",hi:"दोस्त (m.)",en:"friend / boyfriend",art:"der"},
+        {de:"die Freundin",hi:"दोस्त (f.)",en:"friend / girlfriend",art:"die"},
+      ]
+    },
+    {
+      type:"theory", badge:"tip",
+      title:"💡 Sanskrit Cognates in Family Words",
+      body:`<p>Family vocabulary is where German–Hindi connections are clearest:</p>`,
+      tips:[
+        "Mutter ← Sanskrit mātā (माता) — the most obvious cognate!",
+        "Vater ← Sanskrit pitā (पिता root) — the 'p' shifted to 'v/f' (Grimm's Law)",
+        "Bruder ← Sanskrit bhrātā (भ्राता) — Hindi भाई",
+        "Schwester ← Sanskrit svasā (स्वसा) — Hindi बहन",
+        "These words are 4,000 years old and still recognizable across both languages!",
+      ]
+    },
+    {
+      type:"examples", badge:"example",
+      title:"Talking About Your Family",
+      examples:[
+        {de:"Meine Mutter heißt Sunita.",hi:"मेरी माँ का नाम सुनीता है।",en:"My mother's name is Sunita."},
+        {de:"Ich habe einen Bruder.",hi:"मेरा एक भाई है।",en:"I have one brother."},
+        {de:"Mein Vater ist Arzt.",hi:"मेरे पिता डॉक्टर हैं।",en:"My father is a doctor."},
+        {de:"Wie viele Geschwister hast du?",hi:"तुम्हारे कितने भाई-बहन हैं?",en:"How many siblings do you have?"},
+        {de:"Ich habe keine Geschwister.",hi:"मेरे कोई भाई-बहन नहीं हैं।",en:"I have no siblings."},
+      ]
+    }
+  ],
+  quiz:[
+    {type:"mc",q:"'Die Mutter' is connected to which Sanskrit word?",opts:["pitā (पिता)","mātā (माता)","bhrātā (भ्राता)","svasā (स्वसा)"],ans:1,exp:"Mutter ← mātā (माता) — one of the clearest German-Sanskrit-Hindi cognates!"},
+    {type:"fill",q:"'My brother' in German = 'Mein ___'",hint:"der Bruder → mein ___",ans:"Bruder",exp:"'Mein Bruder' = my brother. 'mein' is the possessive for masculine nouns."},
+    {type:"mc",q:"What does 'die Geschwister' mean?",opts:["cousins","parents","siblings","grandparents"],ans:2,exp:"Geschwister = siblings (brothers and sisters together). Plural-only word."},
+    {type:"mc",q:"'Ich habe ___ Bruder.' (I have one brother.)",opts:["ein","eine","einen","einem"],ans:2,exp:"'haben' takes the accusative case. Masculine accusative of 'ein' = 'einen'. Ich habe einen Bruder."},
+    {type:"fill",q:"'My name is ...' = 'Ich _____ ...'",hint:"Verb meaning 'to be called'",ans:"heiße",exp:"Ich heiße = My name is / I am called. From the verb 'heißen'."},
+  ]
+}
+
+}; // end LESSONS
+
+/* ===================================================
+   FLASHCARD DATA
+=================================================== */
+const FLASHCARDS = [
+  {de:"der Mann",art:"der",hi:"आदमी / पति",en:"man / husband",ex:"Der Mann arbeitet."},
+  {de:"die Frau",art:"die",hi:"महिला / पत्नी",en:"woman / wife",ex:"Die Frau kommt."},
+  {de:"das Kind",art:"das",hi:"बच्चा",en:"child",ex:"Das Kind spielt."},
+  {de:"die Schule",art:"die",hi:"स्कूल",en:"school",ex:"Die Schule beginnt um 8 Uhr."},
+  {de:"der Bahnhof",art:"der",hi:"रेलवे स्टेशन",en:"train station",ex:"Wo ist der Bahnhof?"},
+  {de:"das Buch",art:"das",hi:"किताब",en:"book",ex:"Ich lese das Buch."},
+  {de:"die Wohnung",art:"die",hi:"अपार्टमेंट",en:"apartment",ex:"Die Wohnung ist groß."},
+  {de:"der Kaffee",art:"der",hi:"कॉफ़ी",en:"coffee",ex:"Ich trinke Kaffee."},
+  {de:"das Wasser",art:"das",hi:"पानी",en:"water",ex:"Ich trinke Wasser."},
+  {de:"die Mutter",art:"die",hi:"माँ",en:"mother",ex:"Meine Mutter heißt Sunita."},
+  {de:"der Vater",art:"der",hi:"पिता",en:"father",ex:"Mein Vater ist Arzt."},
+  {de:"der Bruder",art:"der",hi:"भाई",en:"brother",ex:"Ich habe einen Bruder."},
+  {de:"die Schwester",art:"die",hi:"बहन",en:"sister",ex:"Sie ist meine Schwester."},
+  {de:"das Mädchen",art:"das",hi:"लड़की",en:"girl",ex:"Das Mädchen lacht."},
+  {de:"die Zeit",art:"die",hi:"समय",en:"time",ex:"Ich habe keine Zeit."},
+  {de:"der Tisch",art:"der",hi:"मेज़",en:"table",ex:"Das Buch liegt auf dem Tisch."},
+  {de:"die Stadt",art:"die",hi:"शहर",en:"city",ex:"Berlin ist eine große Stadt."},
+  {de:"das Essen",art:"das",hi:"खाना",en:"food / meal",ex:"Das Essen ist lecker."},
+  {de:"der Arzt",art:"der",hi:"डॉक्टर (m.)",en:"doctor (male)",ex:"Der Arzt kommt gleich."},
+  {de:"die Ärztin",art:"die",hi:"डॉक्टर (f.)",en:"doctor (female)",ex:"Sie ist Ärztin."},
+];
+
+/* ===================================================
+   STATE
+=================================================== */
+let state = JSON.parse(localStorage.getItem('dk-state') || '{}');
+if (!state.xp) state.xp = 0;
+if (!state.streak) state.streak = 0;
+if (!state.hearts) state.hearts = 5;
+if (!state.completed) state.completed = {};
+if (!state.lastDate) state.lastDate = '';
+
+// streak logic
+const today = new Date().toDateString();
+if (state.lastDate !== today) {
+  const yesterday = new Date(Date.now()-86400000).toDateString();
+  if (state.lastDate === yesterday) { state.streak++; }
+  else if (state.lastDate !== today) { state.streak = state.streak > 0 ? state.streak : 0; }
+  state.lastDate = today;
+  saveState();
+}
+
+function saveState(){localStorage.setItem('dk-state',JSON.stringify(state));}
+function updateStatBar(){
+  document.getElementById('sb-xp').textContent = state.xp;
+  document.getElementById('sb-streak').textContent = state.streak;
+  document.getElementById('sb-hearts').textContent = state.hearts;
+}
+updateStatBar();
+
+/* ===================================================
+   SCREEN ROUTER
+=================================================== */
+let currentLesson = null;
+let currentSlide = 0;
+let quizData = null;
+let quizIdx = 0;
+let quizCorrect = 0;
+let quizHearts = 3;
+let fcIdx = 0;
+let fcKnown = 0;
+
+function showScreen(screen, key){
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  const match = document.querySelector(`[data-screen="${key||screen}"]`);
+  if(match) match.classList.add('active');
+
+  const t = document.getElementById('topbar-title');
+  if(screen==='home'){ t.textContent='Dashboard'; renderHome(); }
+  else if(screen==='lesson'){ t.textContent = LESSONS[key].title; renderLesson(key); }
+  else if(screen==='quiz'){ t.textContent='Mixed Quiz'; renderQuiz(); }
+  else if(screen==='flashcards'){ t.textContent='Flashcards'; renderFlashcards(); }
+  updateOverallProgress();
+}
+
+function updateOverallProgress(){
+  const total = Object.keys(LESSONS).length;
+  const done = Object.keys(state.completed).length;
+  const pct = Math.round(done/total*100);
+  document.getElementById('overall-progress').style.width = pct+'%';
+  document.getElementById('progress-label').textContent = `${done} / ${total} lessons`;
+}
+
+/* ===================================================
+   HOME SCREEN
+=================================================== */
+function renderHome(){
+  const total = Object.keys(LESSONS).length;
+  const done = Object.keys(state.completed).length;
+  let html = `
+  <div class="home-hero">
+    <h2>Willkommen zurück! 👋</h2>
+    <p>You're on a ${state.streak}-day streak. Keep going — Germany awaits you!</p>
+    <button class="hero-btn" onclick="resumeLearning()">▶ Continue Learning</button>
+  </div>
+  <div class="section-title">Your A1 Learning Path</div>
+  <div style="display:flex;flex-wrap:wrap;gap:16px;margin-bottom:32px;align-items:flex-start">`;
+
+  const lessonKeys = Object.keys(LESSONS);
+  lessonKeys.forEach((key,i)=>{
+    const L = LESSONS[key];
+    const isDone = !!state.completed[key];
+    const isNext = !isDone && (i===0 || !!state.completed[lessonKeys[i-1]]);
+    html+=`
+    <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+      <div class="path-node ${isDone?'done':isNext?'current':'todo'}" onclick="${isDone||isNext?`showScreen('lesson','${key}')`:''}">
+        ${isDone?'✓':L.icon}
+      </div>
+      <div class="path-label">${L.title}</div>
+    </div>
+    ${i<lessonKeys.length-1?'<div style="font-size:24px;color:var(--gray-300);align-self:center;margin-top:-20px">→</div>':''}`;
+  });
+
+  html+=`</div>
+  <div class="section-title">All Topics</div>
+  <div class="unit-grid">`;
+
+  lessonKeys.forEach(key=>{
+    const L = LESSONS[key];
+    const isDone = !!state.completed[key];
+    html+=`
+    <div class="unit-card ${isDone?'completed':''}" onclick="showScreen('lesson','${key}')">
+      <div class="unit-icon">${L.icon}</div>
+      <div class="unit-title">${L.title}</div>
+      <div class="unit-subtitle">+${L.xp} XP · ${L.slides.length} slides · ${L.quiz.length} questions</div>
+      <div class="unit-status">${isDone?'✅':''}</div>
+    </div>`;
+  });
+
+  html+=`</div>
+  <div class="section-title">Quick Practice</div>
+  <div style="display:flex;gap:12px;flex-wrap:wrap">
+    <div class="unit-card" onclick="showScreen('flashcards')" style="flex:1;min-width:160px">
+      <div class="unit-icon">🃏</div>
+      <div class="unit-title">Flashcards</div>
+      <div class="unit-subtitle">${FLASHCARDS.length} vocabulary cards</div>
+    </div>
+    <div class="unit-card" onclick="showScreen('quiz','mixed')" style="flex:1;min-width:160px">
+      <div class="unit-icon">🎯</div>
+      <div class="unit-title">Mixed Quiz</div>
+      <div class="unit-subtitle">Random questions from all topics</div>
+    </div>
+  </div>`;
+
+  document.getElementById('content').innerHTML = html;
+}
+
+function resumeLearning(){
+  const keys = Object.keys(LESSONS);
+  for(const k of keys){
+    if(!state.completed[k]){ showScreen('lesson',k); return; }
+  }
+  showScreen('quiz','mixed');
+}
+
+/* ===================================================
+   LESSON VIEW
+=================================================== */
+function renderLesson(key){
+  currentLesson = key;
+  currentSlide = 0;
+  renderSlide();
+}
+
+function renderSlide(){
+  const L = LESSONS[currentLesson];
+  const slide = L.slides[currentSlide];
+  const total = L.slides.length;
+  const pct = Math.round((currentSlide/total)*100);
+
+  let body = `
+  <div class="lesson-header">
+    <button class="back-btn" onclick="showScreen('home')">← Back</button>
+    <h3>${L.title}</h3>
+    <div class="lesson-progress">Slide ${currentSlide+1} of ${total}</div>
+  </div>
+  <div class="progress-track" style="margin-bottom:24px">
+    <div class="progress-fill" style="width:${pct}%"></div>
+  </div>
+  <div class="lesson-card">
+    <div class="lesson-type-badge badge-${slide.badge}">${badge_icon(slide.badge)} ${slide.badge.toUpperCase()}</div>
+    <h4>${slide.title}</h4>
+    ${slide.body||''}`;
+
+  if(slide.table){
+    body+=renderTable(slide.table);
+  }
+  if(slide.examples){
+    slide.examples.forEach(e=>{
+      body+=`<div class="example-block">
+        <div class="de">🔊 ${e.de}</div>
+        <div class="hi">🇮🇳 ${e.hi}</div>
+        <div class="en">🇬🇧 ${e.en}</div>
+      </div>`;
+    });
+  }
+  if(slide.tips){
+    slide.tips.forEach(t=>{
+      body+=`<div class="tip-block"><div class="tip-icon">💡</div><div class="tip-text">${t}</div></div>`;
+    });
+  }
+  if(slide.vocab){
+    body+=`<div class="vocab-grid">`;
+    slide.vocab.forEach(v=>{
+      const artClass = v.art==='der'?'art-der':v.art==='die'?'art-die':v.art==='das'?'art-das':'';
+      body+=`<div class="vocab-card">
+        <div class="vc-de">${v.de}</div>
+        ${v.art?`<div class="vc-article ${artClass}">${v.art}</div>`:''}
+        <div class="vc-hi">${v.hi}</div>
+        <div class="vc-en">${v.en}</div>
+      </div>`;
+    });
+    body+=`</div>`;
+  }
+
+  body+=`</div>
+  <div class="nav-btn-row">
+    <button class="nav-btn-row btn-prev" onclick="prevSlide()" ${currentSlide===0?'disabled':''} style="flex:1;padding:14px;border-radius:12px;border:2px solid var(--gray-200);background:var(--gray-200);color:var(--gray-700);font-size:15px;font-weight:700;cursor:pointer">← Previous</button>
+    <button class="btn-next" onclick="nextSlide()" style="flex:2;padding:14px;border-radius:12px;border:none;font-size:15px;font-weight:700;cursor:pointer">${currentSlide===L.slides.length-1?'Start Quiz →':'Next →'}</button>
+  </div>`;
+
+  document.getElementById('content').innerHTML = body;
+}
+
+function badge_icon(b){return{theory:'📖',example:'💬',tip:'💡'}[b]||'📚';}
+
+function renderTable(t){
+  let h=`<table class="g-table"><thead><tr>`;
+  t.headers.forEach(h2=>h+=`<th>${h2}</th>`);
+  h+=`</tr></thead><tbody>`;
+  t.rows.forEach(r=>{
+    h+=`<tr>`;
+    r.forEach((c,i)=>h+=`<td ${i===0?'style="font-weight:700"':''}>${c}</td>`);
+    h+=`</tr>`;
+  });
+  h+=`</tbody></table>`;
+  return h;
+}
+
+function nextSlide(){
+  const L = LESSONS[currentLesson];
+  if(currentSlide < L.slides.length-1){ currentSlide++; renderSlide(); window.scrollTo(0,0); }
+  else{ startLessonQuiz(); }
+}
+function prevSlide(){
+  if(currentSlide>0){ currentSlide--; renderSlide(); window.scrollTo(0,0); }
+}
+
+/* ===================================================
+   QUIZ ENGINE
+=================================================== */
+function startLessonQuiz(){
+  quizData = LESSONS[currentLesson].quiz;
+  quizIdx = 0; quizCorrect = 0; quizHearts = 3;
+  renderQuizQuestion();
+}
+
+function renderQuiz(){
+  // Mixed quiz from all lessons
+  let all = [];
+  Object.values(LESSONS).forEach(L=>all = all.concat(L.quiz));
+  // shuffle
+  for(let i=all.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[all[i],all[j]]=[all[j],all[i]];}
+  quizData = all.slice(0,10);
+  quizIdx = 0; quizCorrect = 0; quizHearts = 3;
+  renderQuizQuestion();
+}
+
+function renderQuizQuestion(){
+  if(quizIdx >= quizData.length){ renderResults(); return; }
+  if(quizHearts <= 0){ renderResults(true); return; }
+
+  const q = quizData[quizIdx];
+  const pct = Math.round(quizIdx/quizData.length*100);
+  let hearts = '';
+  for(let i=0;i<3;i++) hearts += `<span>${i<quizHearts?'❤️':'🖤'}</span>`;
+
+  let html = `
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+    <button onclick="showScreen('home')" style="background:none;border:none;font-size:18px;cursor:pointer;color:var(--gray-300)">✕</button>
+    <div style="flex:1">
+      <div class="quiz-progress-track"><div class="quiz-progress-fill" style="width:${pct}%"></div></div>
+    </div>
+    <div class="quiz-lives">${hearts}</div>
+  </div>
+  <div class="quiz-card">
+    <div class="quiz-type-label">${q.type==='mc'?'Multiple Choice':'Fill in the Blank'} · Question ${quizIdx+1} of ${quizData.length}</div>
+    <div class="quiz-question">${q.q}</div>
+    ${q.hint?`<div class="quiz-hint">💡 Hint: ${q.hint}</div>`:''}`;
+
+  if(q.type==='mc'){
+    html+=`<div class="options-grid">`;
+    q.opts.forEach((o,i)=>{
+      html+=`<button class="opt-btn" onclick="checkMC(${i})">${o}</button>`;
+    });
+    html+=`</div>`;
+  } else {
+    html+=`<input type="text" class="fill-input" id="fill-ans" placeholder="Type your answer..." onkeydown="if(event.key==='Enter')checkFill()"/>
+    <button class="submit-btn" id="submit-btn" onclick="checkFill()">Check Answer</button>`;
+  }
+  html+=`<div id="feedback"></div></div>`;
+  document.getElementById('content').innerHTML = html;
+  if(q.type==='fill') setTimeout(()=>document.getElementById('fill-ans')?.focus(),100);
+}
+
+function checkMC(idx){
+  const q = quizData[quizIdx];
+  const btns = document.querySelectorAll('.opt-btn');
+  btns.forEach(b=>b.disabled=true);
+  btns[idx].classList.add(idx===q.ans?'correct':'wrong');
+  if(idx!==q.ans) btns[q.ans].classList.add('correct');
+  showFeedback(idx===q.ans, q.exp);
+  if(idx===q.ans){ giveXP(10); }
+  else { quizHearts--; updateStatBar(); }
+}
+
+function checkFill(){
+  const q = quizData[quizIdx];
+  const inp = document.getElementById('fill-ans');
+  const val = inp.value.trim();
+  const correct = val.toLowerCase() === q.ans.toLowerCase();
+  inp.classList.add(correct?'correct-input':'wrong-input');
+  inp.disabled = true;
+  document.getElementById('submit-btn').disabled = true;
+  if(!correct){
+    const hint = document.createElement('div');
+    hint.style.cssText='font-size:14px;color:var(--red);margin-top:6px;font-weight:600';
+    hint.textContent = `Correct answer: ${q.ans}`;
+    inp.parentNode.insertBefore(hint, inp.nextSibling);
+  }
+  showFeedback(correct, q.exp);
+  if(correct){ giveXP(10); }
+  else { quizHearts--; updateStatBar(); }
+}
+
+function showFeedback(correct, exp){
+  if(correct) quizCorrect++;
+  const fb = document.getElementById('feedback');
+  fb.innerHTML = `
+  <div class="feedback-bar ${correct?'correct-fb':'wrong-fb'}">
+    <span class="fb-icon">${correct?'🎉':'💔'}</span>
+    <div>
+      <div>${correct?'Correct! Well done!':'Not quite — keep going!'}</div>
+      <div class="fb-detail">${exp}</div>
+    </div>
+  </div>
+  <button onclick="nextQuestion()" style="width:100%;margin-top:12px;padding:14px;background:${correct?'var(--green)':'var(--blue)'};color:white;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 4px 0 ${correct?'var(--green-dark)':'var(--blue-dark)'}">
+    ${quizIdx===quizData.length-1?'See Results':'Next Question →'}
+  </button>`;
+}
+
+function nextQuestion(){ quizIdx++; renderQuizQuestion(); window.scrollTo(0,0); }
+
+function renderResults(outOfHearts=false){
+  const pct = Math.round(quizCorrect/quizData.length*100);
+  const xpEarned = quizCorrect * 10;
+  let trophy = pct>=90?'🏆':pct>=70?'🥇':pct>=50?'🥈':'📚';
+  let msg = pct>=90?'Outstanding! You nailed it!':pct>=70?'Great work! Almost perfect!':pct>=50?'Good effort! Keep practicing!':'Keep going — every mistake is learning!';
+
+  // Mark lesson complete if from a lesson
+  if(currentLesson && pct>=60){ state.completed[currentLesson]=true; saveState(); }
+
+  document.getElementById('content').innerHTML = `
+  <div class="results-card">
+    <div class="results-trophy">${trophy}</div>
+    <h2>${msg}</h2>
+    <p class="subtitle">${outOfHearts?'You ran out of hearts — review the material and try again!':''}</p>
+    <div class="results-stats">
+      <div class="res-stat green"><div class="val">${quizCorrect}/${quizData.length}</div><div class="lbl">Correct</div></div>
+      <div class="res-stat blue"><div class="val">${pct}%</div><div class="lbl">Accuracy</div></div>
+      <div class="res-stat yellow"><div class="val">+${xpEarned}</div><div class="lbl">XP Earned</div></div>
+    </div>
+    <div class="results-actions">
+      <button class="btn-primary" onclick="retryQuiz()">🔄 Try Again</button>
+      <button class="btn-secondary" onclick="showScreen('home')">🏠 Home</button>
+      ${currentLesson?`<button class="btn-secondary" onclick="showScreen('lesson','${getNextLesson()}')">Next Lesson →</button>`:''}
+    </div>
+  </div>`;
+
+  state.xp += xpEarned;
+  state.streak = state.streak || 1;
+  saveState(); updateStatBar(); updateOverallProgress();
+}
+
+function retryQuiz(){
+  if(currentLesson) startLessonQuiz();
+  else renderQuiz();
+}
+
+function getNextLesson(){
+  const keys = Object.keys(LESSONS);
+  const idx = keys.indexOf(currentLesson);
+  return keys[idx+1] || 'home';
+}
+
+/* ===================================================
+   FLASHCARDS
+=================================================== */
+function renderFlashcards(){
+  fcIdx = 0; fcKnown = 0;
+  renderFlashcard();
+}
+
+function renderFlashcard(){
+  if(fcIdx >= FLASHCARDS.length){
+    document.getElementById('content').innerHTML = `
+    <div class="results-card">
+      <div class="results-trophy">🎉</div>
+      <h2>All cards reviewed!</h2>
+      <p class="subtitle">You knew ${fcKnown} out of ${FLASHCARDS.length} cards</p>
+      <div class="results-actions">
+        <button class="btn-primary" onclick="renderFlashcards()">Review Again</button>
+        <button class="btn-secondary" onclick="showScreen('home')">Home</button>
+      </div>
+    </div>`;
+    return;
+  }
+
+  const card = FLASHCARDS[fcIdx];
+  const artClass = card.art==='der'?'art-der':card.art==='die'?'art-die':'art-das';
+  const pct = Math.round(fcIdx/FLASHCARDS.length*100);
+
+  document.getElementById('content').innerHTML = `
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
+    <button onclick="showScreen('home')" style="background:none;border:none;font-size:18px;cursor:pointer;color:var(--gray-300)">✕</button>
+    <div style="flex:1">
+      <div class="quiz-progress-track"><div class="quiz-progress-fill" style="width:${pct}%"></div></div>
+    </div>
+    <div class="fc-counter">${fcIdx+1} / ${FLASHCARDS.length}</div>
+  </div>
+  <div class="flashcard-wrap">
+    <p style="font-size:14px;color:var(--gray-300);text-align:center;margin-bottom:8px">👆 Click the card to reveal the answer</p>
+    <div class="flashcard" id="fc" onclick="document.getElementById('fc').classList.toggle('flipped')">
+      <div class="flashcard-inner">
+        <div class="fc-front">
+          <div class="fc-word">${card.de}</div>
+          <span class="vc-article ${artClass}" style="font-size:14px;font-weight:700;padding:4px 10px;border-radius:999px;display:inline-block;margin:6px 0">${card.art}</span>
+          <div class="fc-hint" style="font-size:13px;color:var(--gray-300);margin-top:8px">Tap to see meaning</div>
+        </div>
+        <div class="fc-back">
+          <div class="fc-translation">${card.hi}</div>
+          <div style="font-size:13px;color:var(--gray-700);font-style:italic;margin-bottom:8px">${card.en}</div>
+          <div class="fc-example" style="font-size:13px;background:white;padding:8px 12px;border-radius:8px;color:var(--gray-700)">"${card.ex}"</div>
+        </div>
+      </div>
+    </div>
+    <div class="fc-controls">
+      <button class="fc-btn fc-skip" onclick="skipCard()">⏭ Skip</button>
+      <button class="fc-btn fc-know" onclick="knowCard()">✓ I know this!</button>
+    </div>
+    <div style="font-size:13px;color:var(--gray-300)">Known: ${fcKnown} · Remaining: ${FLASHCARDS.length-fcIdx}</div>
+  </div>`;
+}
+
+function knowCard(){ fcKnown++; giveXP(5); fcIdx++; renderFlashcard(); }
+function skipCard(){ fcIdx++; renderFlashcard(); }
+
+/* ===================================================
+   XP SYSTEM
+=================================================== */
+function giveXP(amount){
+  state.xp += amount;
+  saveState(); updateStatBar();
+  const toast = document.getElementById('xp-toast');
+  toast.textContent = `+${amount} XP ⚡`;
+  toast.classList.add('show');
+  setTimeout(()=>toast.classList.remove('show'), 1800);
+}
+
+/* ===================================================
+   INIT
+=================================================== */
+updateOverallProgress();
+renderHome();
+</script>
+</body>
+</html>
